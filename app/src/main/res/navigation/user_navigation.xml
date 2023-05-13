@@ -10,4 +10,9 @@
         android:name="com.example.thp101_team1_bagchance.MeMainFragment"
         android:label="fragment_me_main"
         tools:layout="@layout/fragment_me_main" />
+    <fragment
+        android:id="@+id/exploreMainFragment"
+        android:name="com.example.thp101_team1_bagchance.controller.explore.ExploreMainFragment"
+        android:label="fragment_explore_main"
+        tools:layout="@layout/fragment_explore_main" />
 </navigation>
