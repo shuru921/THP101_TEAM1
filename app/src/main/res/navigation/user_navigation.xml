@@ -7,10 +7,11 @@
 
     <fragment
         android:id="@+id/meMainFragment"
-        android:name="com.example.thp101_team1_bagchance.controller.me.MeMainFragment"
+        android:name="com.example.thp101_team1_bagchance.MeMainFragment"
         android:label="fragment_me_main"
         tools:layout="@layout/fragment_me_main" />
     <fragment
+<<<<<<< HEAD
 <<<<<<< HEAD
         android:id="@+id/cartMainFragment"
         android:name="com.example.thp101_team1_bagchance.controller.cart.CartMainFragment"
@@ -90,4 +91,10 @@
         android:label="fragment_setting_change_password"
         tools:layout="@layout/fragment_setting_change_password" />
 >>>>>>> bf263c6107a438ec035c0090864e2edf1f0c8f48
+=======
+        android:id="@+id/exploreMainFragment"
+        android:name="com.example.thp101_team1_bagchance.model.explore.ExploreMainFragment"
+        android:label="fragment_explore_main"
+        tools:layout="@layout/fragment_explore_main" />
+>>>>>>> explore_yo
 </navigation>
