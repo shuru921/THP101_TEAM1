@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">THP101_TEAM1_BagChance</string>
+    <string name="txtSignUp">註冊</string>
+    <string name="txtLogin">登入</string>
+    <string name="txtGoogleLogin">使用Google登入</string>
+    <string name="txtFacebookLogin">使用Facebook登入</string>
+    <string name="txtOK">確認</string>
+    <string name="txtForgetPassword">忘記密碼 ?</string>
+    <string name="txtPassword">密碼</string>
+    <string name="txtPhone">手機號碼</string>
+    <string name="txtInputPhone">請輸入手機號碼</string>
+    <string name="txtInputPassword">請輸入密碼</string>
 </resources>
