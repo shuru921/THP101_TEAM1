@@ -10,4 +10,35 @@
         android:name="com.example.thp101_team1_bagchance.controller.me.MeMainFragment"
         android:label="fragment_me_main"
         tools:layout="@layout/fragment_me_main" />
+    <fragment
+        android:id="@+id/cartMainFragment"
+        android:name="com.example.thp101_team1_bagchance.controller.cart.CartMainFragment"
+        android:label="fragment_cart_main"
+        tools:layout="@layout/fragment_cart_main" >
+        <action
+            android:id="@+id/action_cartMainFragment_to_cartPointFragment"
+            app:destination="@id/cartPointFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cartPointFragment"
+        android:name="com.example.thp101_team1_bagchance.controller.cart.CartPointFragment"
+        android:label="fragment_cart_point"
+        tools:layout="@layout/fragment_cart_point" >
+        <action
+            android:id="@+id/action_cartPointFragment_to_cartListFragment"
+            app:destination="@id/cartListFragment" />
+        <action
+            android:id="@+id/action_cartPointFragment_to_cartPayFragment"
+            app:destination="@id/cartPayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cartListFragment"
+        android:name="com.example.thp101_team1_bagchance.controller.cart.CartListFragment"
+        android:label="fragment_cart_list"
+        tools:layout="@layout/fragment_cart_list" />
+    <fragment
+        android:id="@+id/cartPayFragment"
+        android:name="com.example.thp101_team1_bagchance.controller.cart.CartPayFragment"
+        android:label="fragment_cart_pay"
+        tools:layout="@layout/fragment_cart_pay" />
 </navigation>
