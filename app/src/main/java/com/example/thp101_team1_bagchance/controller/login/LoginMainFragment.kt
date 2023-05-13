@@ -1,4 +1,4 @@
-package com.example.thp101_team1_bagchance.viewmodel.setting
+package com.example.thp101_team1_bagchance.controller.login
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -7,25 +7,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.thp101_team1_bagchance.R
+import com.example.thp101_team1_bagchance.viewmodel.login.LoginMainViewModel
 
-class `123` : Fragment() {
+class LoginMainFragment : Fragment() {
 
     companion object {
-        fun newInstance() = `123`()
+        fun newInstance() = LoginMainFragment()
     }
 
-    private lateinit var viewModel: MeMainViewModel
+    private lateinit var viewModel: LoginMainViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_me_main, container, false)
+        return inflater.inflate(R.layout.fragment_login_main, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MeMainViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(LoginMainViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

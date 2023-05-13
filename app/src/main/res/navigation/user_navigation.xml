@@ -11,6 +11,7 @@
         android:label="fragment_me_main"
         tools:layout="@layout/fragment_me_main" />
     <fragment
+<<<<<<< HEAD
         android:id="@+id/cartMainFragment"
         android:name="com.example.thp101_team1_bagchance.controller.cart.CartMainFragment"
         android:label="fragment_cart_main"
@@ -41,4 +42,52 @@
         android:name="com.example.thp101_team1_bagchance.controller.cart.CartPayFragment"
         android:label="fragment_cart_pay"
         tools:layout="@layout/fragment_cart_pay" />
+=======
+        android:id="@+id/settingMainFragment"
+        android:name="com.example.thp101_team1_bagchance.controller.setting.SettingMainFragment"
+        android:label="fragment_setting_main"
+        tools:layout="@layout/fragment_setting_main" >
+        <action
+            android:id="@+id/action_settingMainFragment_to_settingLanguageFragment"
+            app:destination="@id/settingLanguageFragment" />
+        <action
+            android:id="@+id/action_settingMainFragment_to_settingAccountFragment"
+            app:destination="@id/settingAccountFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingLanguageFragment"
+        android:name="com.example.thp101_team1_bagchance.controller.setting.SettingLanguageFragment"
+        android:label="fragment_setting_language"
+        tools:layout="@layout/fragment_setting_language" />
+    <fragment
+        android:id="@+id/settingAccountFragment"
+        android:name="com.example.thp101_team1_bagchance.controller.setting.SettingAccountFragment"
+        android:label="fragment_setting_account"
+        tools:layout="@layout/fragment_setting_account" >
+        <action
+            android:id="@+id/action_settingAccountFragment_to_settingChangeMailFragment"
+            app:destination="@id/settingChangeMailFragment" />
+        <action
+            android:id="@+id/action_settingAccountFragment_to_settingChangePhoneFragment"
+            app:destination="@id/settingChangePhoneFragment" />
+        <action
+            android:id="@+id/action_settingAccountFragment_to_settingChangePasswordFragment"
+            app:destination="@id/settingChangePasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingChangeMailFragment"
+        android:name="com.example.thp101_team1_bagchance.controller.setting.SettingChangeMailFragment"
+        android:label="fragment_setting_change_mail"
+        tools:layout="@layout/fragment_setting_change_mail" />
+    <fragment
+        android:id="@+id/settingChangePhoneFragment"
+        android:name="com.example.thp101_team1_bagchance.controller.setting.SettingChangePhoneFragment"
+        android:label="fragment_setting_change_phone"
+        tools:layout="@layout/fragment_setting_change_phone" />
+    <fragment
+        android:id="@+id/settingChangePasswordFragment"
+        android:name="com.example.thp101_team1_bagchance.controller.setting.SettingChangePasswordFragment"
+        android:label="fragment_setting_change_password"
+        tools:layout="@layout/fragment_setting_change_password" />
+>>>>>>> bf263c6107a438ec035c0090864e2edf1f0c8f48
 </navigation>

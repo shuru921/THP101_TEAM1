@@ -1,4 +1,4 @@
-package com.example.thp101_team1_bagchance.viewmodel.setting
+package com.example.thp101_team1_bagchance
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -6,12 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.thp101_team1_bagchance.R
 
-class `123` : Fragment() {
+class MeMainFragment : Fragment() {
 
     companion object {
-        fun newInstance() = `123`()
+        fun newInstance() = MeMainFragment()
     }
 
     private lateinit var viewModel: MeMainViewModel
