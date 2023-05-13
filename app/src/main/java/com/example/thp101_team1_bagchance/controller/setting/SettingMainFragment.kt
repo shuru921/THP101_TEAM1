@@ -15,7 +15,7 @@ import com.example.thp101_team1_bagchance.R
  */
 class SettingMainFragment : Fragment() {
 
-
+//for test for test
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
