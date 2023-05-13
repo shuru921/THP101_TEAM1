@@ -1,4 +1,4 @@
-package com.example.thp101_team1_bagchance.controller.cart
+package com.example.thp101_team1_bagchance.controller.me
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -7,11 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.thp101_team1_bagchance.R
+import com.example.thp101_team1_bagchance.viewmodel.me.MeMainViewModel
 
-class `123` : Fragment() {
+class MeMainFragment : Fragment() {
 
     companion object {
-        fun newInstance() = `123`()
+        fun newInstance() = MeMainFragment()
     }
 
     private lateinit var viewModel: MeMainViewModel

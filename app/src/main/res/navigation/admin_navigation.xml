@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/blankFragment"
-        android:name="com.example.thp101_team1_bagchance.controller.login.BlankFragment"
+        android:name="com.example.thp101_team1_bagchance.BlankFragment"
         android:label="fragment_blank"
         tools:layout="@layout/fragment_blank" />
     <fragment
         android:id="@+id/blankFragment2"
-        android:name="com.example.thp101_team1_bagchance.viewmodel.explore.BlankFragment2"
+        android:name="com.example.thp101_team1_bagchance.BlankFragment2"
         android:label="fragment_blank2"
         tools:layout="@layout/fragment_blank2" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.example.thp101_team1_bagchance
+package com.example.thp101_team1_bagchance.viewmodel.explore
 
 import androidx.lifecycle.ViewModel
 
