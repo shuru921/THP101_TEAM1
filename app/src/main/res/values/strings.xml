@@ -1,20 +1,7 @@
 <resources>
     <string name="app_name">THP101_TEAM1_BagChance</string>
-<<<<<<< HEAD
-    <
-    <
-    <
-    <
-    <
-    <
-    < HEAD
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    =======
-=======
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
->>>>>>> a0a508d1d79354dd4520e55849f536bbbd38ad56
+
     <string name="txtSignUp">註冊</string>
     <string name="txtLogin">登入</string>
     <string name="txtGoogleLogin">使用Google登入</string>
@@ -25,8 +12,12 @@
     <string name="txtPhone">手機號碼</string>
     <string name="txtInputPhone">請輸入手機號碼</string>
     <string name="txtInputPassword">請輸入密碼</string>
-<<<<<<< HEAD
-    >>>>>>> login_Noa
-=======
->>>>>>> a0a508d1d79354dd4520e55849f536bbbd38ad56
+
+    <string name="txtExplore">探索</string>
+    <string name="txtChat">聊天</string>
+    <string name="txtPost">貼文</string>
+    <string name="txtPremium">升級</string>
+    <string name="txtProfile">個人</string>
+    <string name="txtSetting">設定</string>
+    <string name="txtShopping">購物</string>
 </resources>
