@@ -10,7 +10,7 @@ import com.example.thp101_team1_bagchance.R
 import com.example.thp101_team1_bagchance.viewmodel.cart.CartMainViewModel
 
 class CartMainFragment : Fragment() {
-
+//test
     companion object {
         fun newInstance() = CartMainFragment()
     }
