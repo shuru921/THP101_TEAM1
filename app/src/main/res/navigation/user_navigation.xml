@@ -128,4 +128,18 @@
         android:name="com.example.thp101_team1_bagchance.controller.setting.SettingChangePasswordFragment"
         android:label="fragment_setting_change_password"
         tools:layout="@layout/fragment_setting_change_password" />
+    <fragment
+        android:id="@+id/chatMainFragment"
+        android:name="com.example.thp101_team1_bagchance.controller.chat.ChatMainFragment"
+        android:label="fragment_chat_main"
+        tools:layout="@layout/fragment_chat_main" >
+        <action
+            android:id="@+id/action_chatMainFragment_to_chatRoomFragment"
+            app:destination="@id/chatRoomFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatRoomFragment"
+        android:name="com.example.thp101_team1_bagchance.controller.chat.ChatRoomFragment"
+        android:label="fragment_chat_room"
+        tools:layout="@layout/fragment_chat_room" />
 </navigation>
