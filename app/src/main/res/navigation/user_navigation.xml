@@ -128,4 +128,57 @@
         android:name="com.example.thp101_team1_bagchance.controller.setting.SettingChangePasswordFragment"
         android:label="fragment_setting_change_password"
         tools:layout="@layout/fragment_setting_change_password" />
+    <fragment
+        android:id="@+id/postAlbumFragment"
+        android:name="com.example.thp101_team1_bagchance.controller.post.PostAlbumFragment"
+        android:label="fragment_post_album"
+        tools:layout="@layout/fragment_post_album" >
+        <action
+            android:id="@+id/action_postAlbumFragment_to_postEditPhotoFragment"
+            app:destination="@id/postEditPhotoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postPhotographFragment"
+        android:name="com.example.thp101_team1_bagchance.controller.post.PostPhotographFragment"
+        android:label="fragment_post_photograph"
+        tools:layout="@layout/fragment_post_photograph" >
+        <action
+            android:id="@+id/action_postPhotographFragment_to_postEditPhotoFragment"
+            app:destination="@id/postEditPhotoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postChooseFragment"
+        android:name="com.example.thp101_team1_bagchance.controller.post.PostChooseFragment"
+        android:label="fragment_post_choose"
+        tools:layout="@layout/fragment_post_choose" >
+        <action
+            android:id="@+id/action_postChooseFragment_to_postPhotographFragment"
+            app:destination="@id/postPhotographFragment" />
+        <action
+            android:id="@+id/action_postChooseFragment_to_postAlbumFragment"
+            app:destination="@id/postAlbumFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postEditPhotoFragment"
+        android:name="com.example.thp101_team1_bagchance.controller.post.PostEditPhotoFragment"
+        android:label="fragment_post_edit_photo"
+        tools:layout="@layout/fragment_post_edit_photo" >
+        <action
+            android:id="@+id/action_postEditPhotoFragment_to_postNewContentFragment"
+            app:destination="@id/postNewContentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postNewContentFragment"
+        android:name="com.example.thp101_team1_bagchance.controller.post.PostNewContentFragment"
+        android:label="fragment_post_new_content"
+        tools:layout="@layout/fragment_post_new_content" >
+        <action
+            android:id="@+id/action_postNewContentFragment_to_postPositionFragment"
+            app:destination="@id/postPositionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postPositionFragment"
+        android:name="com.example.thp101_team1_bagchance.controller.post.PostPositionFragment"
+        android:label="fragment_post_position"
+        tools:layout="@layout/fragment_post_position" />
 </navigation>
