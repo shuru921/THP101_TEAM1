@@ -29,7 +29,7 @@
             android:background="@color/search269AA151">
 
             <ImageView
-                android:id="@+id/ivAvatar_Chat"
+                android:id="@+id/ivRoomAvatar_Chat"
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
