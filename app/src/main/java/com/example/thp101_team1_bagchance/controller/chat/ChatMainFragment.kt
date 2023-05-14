@@ -8,26 +8,30 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.thp101_team1_bagchance.viewmodel.chat.ChatMainViewModel
 import com.example.thp101_team1_bagchance.R
+import com.example.thp101_team1_bagchance.databinding.FragmentChatMainBinding
+import com.example.thp101_team1_bagchance.databinding.FragmentSettingMainBinding
 
 class ChatMainFragment : Fragment() {
+    private lateinit var binding: FragmentChatMainBinding
 
-    companion object {
-        fun newInstance() = ChatMainFragment()
-    }
-
-    private lateinit var viewModel: ChatMainViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_chat_main, container, false)
+        super.onCreateView(inflater, container, savedInstanceState)
+        //requireActivity().setTitle(R.string.txtChat)
+        binding = FragmentChatMainBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ChatMainViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //activity?.setTitle(R.string.txtChat)
+        with(binding) {
+
+        }
     }
 
 }
