@@ -1,88 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/roomLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".controller.chat.ChatRoomFragment"
+    tools:context=".controller.chat.ChatRoomFragment">
 
-    >
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.thp101_team1_bagchance.viewmodel.chat.ChatRoomViewModel" />
+    </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/roomLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/search269AA151">
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/ivRoomAvatar_Chat"
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                tools:src="@tools:sample/avatars" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/search269AA151">
+<!--沒資料拉幹-->
+                <ImageView
+                    android:id="@+id/ivRoomAvatar_Chat"
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    tools:src="@tools:sample/avatars" />
 
-            <TextView
-                android:id="@+id/tvName_Chat"
-                android:layout_width="119dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/tvName_Chat"
+                    android:layout_width="119dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvMessage_Chat"
+                android:layout_width="match_parent"
+                android:layout_height="538dp"
+                android:background="@color/search9AA151" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/ivPhoto_Chat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_camera" />
+
+                <ImageView
+                    android:id="@+id/ivRecording_Chat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_recording" />
+
+                <EditText
+                    android:id="@+id/etEnter_Chat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="12"
+                    android:inputType="textPersonName"
+                    android:text="@={viewModel.text}"/>
+
+                <ImageView
+                    android:id="@+id/ivSend_Chat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_enter" />
+
+            </LinearLayout>
         </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvMessage_Chat"
-            android:layout_width="match_parent"
-            android:layout_height="538dp"
-            android:background="@color/search9AA151" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/ivPhoto_Chat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_camera" />
-
-            <ImageView
-                android:id="@+id/ivRecording_Chat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_recording" />
-
-            <EditText
-                android:id="@+id/etEnter_Chat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="12"
-                android:inputType="textPersonName"
-                android:text="Name" />
-
-            <ImageView
-                android:id="@+id/ivSend_Chat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_enter" />
-
-        </LinearLayout>
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
