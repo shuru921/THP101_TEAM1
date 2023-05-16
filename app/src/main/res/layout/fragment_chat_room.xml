@@ -39,8 +39,7 @@
                 android:id="@+id/tvName_Chat"
                 android:layout_width="119dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="TextView" />
+                android:layout_weight="1" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

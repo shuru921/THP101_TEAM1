@@ -33,14 +33,12 @@
                 <TextView
                     android:id="@+id/tvId_Chat"
                     android:layout_width="match_parent"
-                    android:layout_height="82dp"
-                    android:text="TextView" />
+                    android:layout_height="82dp" />
 
                 <TextView
                     android:id="@+id/tvLastMessage_Chat"
                     android:layout_width="match_parent"
-                    android:layout_height="101dp"
-                    android:text="TextView" />
+                    android:layout_height="101dp" />
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
