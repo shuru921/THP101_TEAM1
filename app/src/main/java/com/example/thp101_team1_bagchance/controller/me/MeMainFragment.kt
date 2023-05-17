@@ -10,7 +10,11 @@ import com.example.thp101_team1_bagchance.R
 import com.example.thp101_team1_bagchance.viewmodel.me.MeMainViewModel
 
 class MeMainFragment : Fragment() {
+<<<<<<< HEAD
 //狗溝狗溝
+=======
+//貓咪貓咪貓咪
+>>>>>>> main
     companion object {
         fun newInstance() = MeMainFragment()
     }
