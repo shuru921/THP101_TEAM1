@@ -46,9 +46,8 @@ class ChatMainAdapter(var friends: List<Any>)
 //          跳頁我想帶資料走所以寫bundle
             val bundle = Bundle()
 //          Any是我先亂寫的 所以無法繼承Serializable 但沒寫錯 別問我為甚麼是putSerializable 用其他我扁你
-            bundle.putSerializable("friend", friend)
-//          她媽把itemview設成點擊按鈕超麻煩 所以先寫點頭像
-            itemviewbinding.ivAvatarChat.setOnClickListener {
+//            ... bundle.putSerializable("friend", friend)
+            itemView.setOnClickListener {
                 Navigation.findNavController(it)
                     .navigate(R.id.action_chatMainFragment_to_chatRoomFragment,bundle)
             }

@@ -34,5 +34,15 @@ class ChatRoomFragment : Fragment() {
                 binding.viewModel?.friend?.value = it as Any
             }
         }
+
+        with (binding) {
+            ivPhotoChat
+                // TODO: 照片或拍照得下方彈出篩選 一樣對話框得加入格式(縮圖)
+            ivRecordingChat
+                // TODO: 錄音下方彈出怎麼寫 對話框目前只有textview 得修改
+            ivSendChat.setOnClickListener{
+                // TODO: 要把資料傳給資料庫 並且傳入對話框內 判斷置左置右
+            }
+        }
     }
 }
