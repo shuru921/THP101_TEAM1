@@ -10,7 +10,7 @@ import com.example.thp101_team1_bagchance.R
 import com.example.thp101_team1_bagchance.viewmodel.me.MeMainViewModel
 
 class MeMainFragment : Fragment() {
-
+//貓咪貓咪貓咪
     companion object {
         fun newInstance() = MeMainFragment()
     }
