@@ -6,14 +6,15 @@ import android.view.ViewGroup
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.example.thp101_team1_bagchance.Friend
 import com.example.thp101_team1_bagchance.R
 import com.example.thp101_team1_bagchance.databinding.ChatItemViewBinding
 import com.example.thp101_team1_bagchance.viewmodel.chat.ChatRoomViewModel
 
-class ChatMainAdapter(var friends: List<Any>)
+class ChatMainAdapter(var friends: List<Friend>)
     : RecyclerView.Adapter<ChatMainAdapter.FriendViewHolder>() {
 //  更新受監控列表方法
-    fun update (friends: List<Any>) {
+    fun update (friends: List<Friend>) {
         this.friends = friends
         notifyDataSetChanged()
     }
@@ -45,8 +46,8 @@ class ChatMainAdapter(var friends: List<Any>)
             itemviewbinding.viewModel?.friend?.value = friend
 //          跳頁我想帶資料走所以寫bundle
             val bundle = Bundle()
-//          Any是我先亂寫的 所以無法繼承Serializable 但沒寫錯 別問我為甚麼是putSerializable 用其他我扁你
-//            ... bundle.putSerializable("friend", friend)
+
+            bundle.putSerializable("friend", friend)
             itemView.setOnClickListener {
                 Navigation.findNavController(it)
                     .navigate(R.id.action_chatMainFragment_to_chatRoomFragment,bundle)

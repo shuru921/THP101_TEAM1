@@ -5,6 +5,7 @@
     tools:context=".controller.chat.ChatRoomFragment">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.example.thp101_team1_bagchance.viewmodel.chat.ChatRoomViewModel" />
@@ -31,9 +32,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@color/search269AA151">
-<!--沒資料拉幹-->
+                android:background="@color/search269AA151"
+                android:orientation="horizontal">
+                <!--沒資料拉幹-->
                 <ImageView
                     android:id="@+id/ivRoomAvatar_Chat"
                     android:layout_width="2dp"
@@ -81,7 +82,7 @@
                     android:layout_weight="1"
                     android:ems="12"
                     android:inputType="textPersonName"
-                    android:text="@={viewModel.text}"/>
+                    android:text="@={viewModel.text}" />
 
                 <ImageView
                     android:id="@+id/ivSend_Chat"
@@ -91,9 +92,13 @@
                     android:src="@drawable/ic_enter" />
 
             </LinearLayout>
+
             <include
                 android:id="@+id/included"
                 layout="@layout/recorder_bottom_sheet" />
+
         </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

@@ -2,9 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-<!--幹這個itemview也沒context 484在搞我-->
-<!--我先假設有資料會和BUNDLE一起傳進chatroomviewmodel-->
+    <!--幹這個itemview也沒context 484在搞我-->
+    <!--我先假設有資料會和BUNDLE一起傳進chatroomviewmodel-->
     <data>
+
         <variable
             name="viewModel"
             type="com.example.thp101_team1_bagchance.viewmodel.chat.ChatRoomViewModel" />
@@ -12,7 +13,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,36 +23,77 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:orientation="horizontal">
-<!--對 我還是沒資料-->
+            <!--對 我還是沒資料-->
             <LinearLayout
+                android:id="@+id/ll_from"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_weight="1"
-                android:gravity="start">
+                android:gravity="start"
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/tvImessage_Chat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/message"
+                    android:visibility="gone" />
+
+                <!--                <include-->
+                <!--                    android:id="@+id/recorder_message"-->
+                <!--                    layout="@layout/recorder_message"-->
+                <!--                    android:background="@drawable/ic_imessge"-->
+                <!--                    android:visibility="gone" />-->
+
+                <ImageView
+                    android:id="@+id/ivPicture_Chat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/ic_imessge" />
+                    android:src="@drawable/ic_enter"
+                    android:visibility="gone"
+                    tools:srcCompat="@drawable/ic_enter" />
+
             </LinearLayout>
-<!--猜到了嗎 對 沒有資料-->
+            <!--猜到了嗎 對 沒有資料-->
+            <!--不確定這樣能不能多張-->
             <LinearLayout
+                android:id="@+id/ll_to"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_weight="1"
                 android:gravity="end"
-                android:layout_weight="1">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/tvMeImessage_Chat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/ic_meimessage" />
+                    android:background="@drawable/memessage"
+                    android:visibility="gone" />
+
+                <!--                <include-->
+                <!--                    android:id="@+id/recorder_message"-->
+                <!--                    layout="@layout/recorder_message"-->
+                <!--                    android:background="@drawable/ic_meimessage"-->
+                <!--                    android:visibility="gone" />-->
+
+                <ImageView
+                    android:id="@+id/ivMePicture_Chat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_enter"
+                    android:visibility="gone"
+                    tools:srcCompat="@drawable/ic_enter" />
+
             </LinearLayout>
+
         </LinearLayout>
+
     </FrameLayout>
+
 </layout>

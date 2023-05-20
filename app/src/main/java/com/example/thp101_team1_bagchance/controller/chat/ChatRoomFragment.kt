@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.thp101_team1_bagchance.viewmodel.chat.ChatRoomViewModel
 import com.example.thp101_team1_bagchance.R
 import com.example.thp101_team1_bagchance.databinding.FragmentChatRoomBinding
@@ -29,7 +30,7 @@ class ChatRoomFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         val viewModel: ChatRoomViewModel by viewModels()
         binding = FragmentChatRoomBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
@@ -48,6 +49,15 @@ class ChatRoomFragment : Fragment() {
         }
 
         with(binding) {
+            rvMessageChat.layoutManager = LinearLayoutManager(requireContext())
+            viewModel?.messagelist?.observe(viewLifecycleOwner) {
+                if (rvMessageChat.adapter == null) {
+                    rvMessageChat.adapter = ChatRoomAdapter(it)
+                } else {
+                    (rvMessageChat.adapter as ChatRoomAdapter).update(it)
+                }
+            }
+
             ivPhotoChat.setOnClickListener {
                 // TODO: 照片或拍照得下方彈出篩選 一樣對話框得加入格式(縮圖)
             }
@@ -59,7 +69,7 @@ class ChatRoomFragment : Fragment() {
                 }
 //                設定長點擊錄音 放開就結束錄音
                 included.ivRecordChat
-                    // TODO: 錄音功能 送出
+                // TODO: 錄音功能 送出
 
             }
             ivSendChat.setOnClickListener {
