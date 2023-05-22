@@ -1,7 +1,6 @@
 package com.example.thp101_team1_bagchance.controller.chat
 
 import android.Manifest
-import android.content.pm.PackageManager
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Build
@@ -14,8 +13,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,7 +21,9 @@ import com.example.thp101_team1_bagchance.R
 import com.example.thp101_team1_bagchance.databinding.FragmentChatRoomBinding
 import com.example.thp101_team1_bagchance.viewmodel.chat.ChatRoomViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import kotlinx.coroutines.*
 import java.io.File
+import java.lang.Runnable
 import java.util.*
 
 
@@ -37,6 +36,7 @@ class ChatRoomFragment : Fragment(),  View.OnTouchListener {
     private lateinit var file: File
     private val timer: Timer? = null
     private var durationInSeconds = 0
+    private var job: Job? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -75,6 +75,10 @@ class ChatRoomFragment : Fragment(),  View.OnTouchListener {
                 if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_EXPANDED) {
                     bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
                 }
+                // TODO: bottomSheet String還沒加 
+                included2.tvcameraChat.setOnClickListener {  }
+
+                included2.tvalbumChat.setOnClickListener {  }
             }
             ivRecordingChat.setOnClickListener {
                 val bottomSheetBehavior = BottomSheetBehavior.from(included.bottomSheet)
@@ -82,10 +86,7 @@ class ChatRoomFragment : Fragment(),  View.OnTouchListener {
                     bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
                 }
 //                設定長點擊錄音 放開就結束錄音
-
                  included.ivRecordChat.setOnTouchListener(this@ChatRoomFragment)
-                    // TODO:  送出
-
             }
             ivSendChat.setOnClickListener {
                 // TODO: 要把資料傳給資料庫 並且傳入對話框內
@@ -95,6 +96,7 @@ class ChatRoomFragment : Fragment(),  View.OnTouchListener {
 
     override fun onStart() {
         super.onStart()
+//        啟動requestPermissionLauncher 向使用者申請權限
         requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
     }
 
@@ -102,12 +104,12 @@ class ChatRoomFragment : Fragment(),  View.OnTouchListener {
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
             recordGranted = if (result) true
             else {
-//                還沒加入String
+                // TODO: 還沒加入String 
                 Toast.makeText(requireContext(),"請授權", Toast.LENGTH_SHORT).show()
                 false
             }
         }
-//          設定長按
+//          設定長按及放開
 override fun onTouch(v: View?, event: MotionEvent?): Boolean {
     when (v?.id) {
         R.id.ivRecord_Chat -> {
@@ -126,7 +128,7 @@ override fun onTouch(v: View?, event: MotionEvent?): Boolean {
     }
     return true
 }
-
+//          開始錄音
     private fun startRecording() {
 
         // 开始录音
@@ -156,7 +158,7 @@ override fun onTouch(v: View?, event: MotionEvent?): Boolean {
         }
     }
 
-
+//          停止錄音
     private fun stopRecording() {
         try {
             if (mediaRecorder != null) {
@@ -173,30 +175,39 @@ override fun onTouch(v: View?, event: MotionEvent?): Boolean {
         mediaRecorder = null
     }
 
+//          錄音介面計時器
+
 
     private fun startRecordingTimer() {
         durationInSeconds = 0
-        timer?.scheduleAtFixedRate(object : TimerTask() {
-            override fun run() {
+        // 创建一个 Job 对象用于管理协程的生命周期
+        job = CoroutineScope(Dispatchers.Main).launch {
+            // 在协程作用域中执行代码块
+            while (isActive) {
+                // 延迟 1 秒钟
+                delay(1000)
+                // 每秒钟递增 durationInSeconds 的值
                 durationInSeconds++
+                // 更新录音计时器的显示
                 updateDurationTextView()
             }
-        }, 1000, 1000)
+        }
     }
 
     private fun stopRecordingTimer() {
-        timer?.cancel()
-        timer?.purge()
+        // 取消协程的执行
+        job?.cancel()
+        // 将 job 设置为 null，表示协程已经停止
+        job = null
     }
 
+    //          textview刷新方法
     private fun updateDurationTextView() {
         val minutes = durationInSeconds / 60
         val seconds = durationInSeconds % 60
         val durationText = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds)
 
-        Handler(Looper.getMainLooper()).post {
-            binding.included.tvTimeChat.text = durationText
-        }
+//          併回UI線程
         activity?.runOnUiThread {
             binding.included.tvTimeChat.text = durationText
         }
