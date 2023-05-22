@@ -57,7 +57,7 @@ class ChatMainFragment : Fragment() {
                 }
 //            內容變化呼叫search()
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    viewModel!!.search(newText)
+                    viewModel?.search(newText)
                     return true
                 }
             })

@@ -39,23 +39,37 @@ class ChatRoomAdapter(var messageList: List<Message>) :
         with(holder.itemViewBinding) {
             if (message.fromId == 0) {
                 llTo.visibility = View.VISIBLE
+                llFrom.visibility = View.GONE
                 if (message.text.isNotEmpty()) {
                     tvMeImessageChat.visibility = View.VISIBLE
                     tvMeImessageChat.text = message.text
+                    llMeRecorderChat.visibility = View.GONE
+                    ivMePictureChat.visibility = View.GONE
                 } else if (message.record.isNotEmpty()) {
-//                    recorderMessage.ivPlayChat.visibility = View.VISIBLE
+                    llMeRecorderChat.visibility = View.VISIBLE
+                    tvMeImessageChat.visibility = View.GONE
+                    ivMePictureChat.visibility = View.GONE
                 } else if (message.image.isNotEmpty()) {
                     ivMePictureChat.visibility = View.VISIBLE
+                    llMeRecorderChat.visibility = View.GONE
+                    tvMeImessageChat.visibility = View.GONE
                 }
             } else {
                 llFrom.visibility = View.VISIBLE
+                llTo.visibility = View.GONE
                 if (message.text.isNotEmpty()) {
                     tvImessageChat.visibility = View.VISIBLE
                     tvImessageChat.text = message.text
+                    llRecorderChat.visibility = View.GONE
+                    ivPictureChat.visibility = View.GONE
                 } else if (message.record.isNotEmpty()) {
-//                    recorderMessage.ivPlayChat.visibility = View.VISIBLE
+                    llRecorderChat.visibility = View.VISIBLE
+                    tvImessageChat.visibility = View.GONE
+                    ivPictureChat.visibility = View.GONE
                 } else if (message.image.isNotEmpty()) {
                     ivPictureChat.visibility = View.VISIBLE
+                    llRecorderChat.visibility = View.GONE
+                    tvImessageChat.visibility = View.GONE
                 }
             }
         }

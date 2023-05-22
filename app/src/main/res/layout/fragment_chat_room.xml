@@ -11,7 +11,7 @@
             type="com.example.thp101_team1_bagchance.viewmodel.chat.ChatRoomViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/roomLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -23,37 +23,36 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/search269AA151"
                 android:orientation="horizontal">
-                <!--沒資料拉幹-->
+
                 <ImageView
                     android:id="@+id/ivRoomAvatar_Chat"
-                    android:layout_width="2dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="3"
+                    android:src="@drawable/ic_enter"
                     tools:src="@tools:sample/avatars" />
 
                 <TextView
                     android:id="@+id/tvName_Chat"
-                    android:layout_width="119dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@{viewModel.friend.name}" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvMessage_Chat"
                 android:layout_width="match_parent"
-                android:layout_height="538dp"
+                android:layout_height="460dp"
                 android:background="@color/search9AA151" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -93,12 +92,16 @@
 
             </LinearLayout>
 
-            <include
-                android:id="@+id/included"
-                layout="@layout/recorder_bottom_sheet" />
-
         </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <include
+            android:id="@+id/included"
+            layout="@layout/recorder_bottom_sheet" />
+        <include
+            android:id="@+id/included2"
+            layout= "@layout/photo_bottom_sheet"
+            />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

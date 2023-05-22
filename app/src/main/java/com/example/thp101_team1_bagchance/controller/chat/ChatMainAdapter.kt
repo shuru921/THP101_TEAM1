@@ -46,7 +46,6 @@ class ChatMainAdapter(var friends: List<Friend>)
             itemviewbinding.viewModel?.friend?.value = friend
 //          跳頁我想帶資料走所以寫bundle
             val bundle = Bundle()
-
             bundle.putSerializable("friend", friend)
             itemView.setOnClickListener {
                 Navigation.findNavController(it)
