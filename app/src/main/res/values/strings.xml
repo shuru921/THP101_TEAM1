@@ -20,4 +20,21 @@
     <string name="txtProfile">個人</string>
     <string name="txtSetting">設定</string>
     <string name="txtShopping">購物</string>
+    <string name="txtEmail">Email</string>
+    <string name="txtConfirmPassword">再次確認密碼</string>
+    <string name="txtInputEmail">請輸入信箱</string>
+    <string name="txtInputConfirmPassword">請再次輸入密碼</string>
+    <string name="txtGetVerificationCode">取得驗證碼</string>
+    <string name="txtVerificationCode">驗證碼</string>
+    <string name="txtInputVerificationCode">請輸入驗證碼</string>
+    <string name="txtResetPassword">重設密碼</string>
+    <string name="txtNewPassword">新密碼</string>
+    <string name="txtInputNewPassword">請輸入新密碼</string>
+    <string name="txtConfirmNewPassword">再次確認新密碼</string>
+    <string name="txtInputConfirmNewPassword">請再次輸入新密碼</string>
+    <string name="txtPersonalInformation">個人資料</string>
+    <string name="txtNickname">暱稱</string>
+    <string name="txtBirthday">生日</string>
+    <string name="txtGender">性別</string>
+    <string name="txtArea">地區</string>
 </resources>

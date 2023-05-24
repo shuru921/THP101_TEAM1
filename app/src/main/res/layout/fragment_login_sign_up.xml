@@ -1,13 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".controller.login.LoginSignUpFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.thp101_team1_bagchance.viewmodel.login.LoginSignUpViewModel" />
+    </data>
 
-</FrameLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="24dp"
+            android:gravity="center"
+            android:text="@string/txtSignUp"
+            android:textColor="#000000"
+            android:textSize="24.88sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/txtEmail"
+            android:textColor="#000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+        <EditText
+            android:id="@+id/etEmail_LoginSignup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="24dp"
+            android:ems="10"
+            android:hint="@string/txtInputEmail"
+            android:inputType="textEmailAddress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/txtPhone"
+            android:textColor="#000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etEmail_LoginSignup" />
+
+        <EditText
+            android:id="@+id/etPhone_LoginSignup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="24dp"
+            android:ems="10"
+            android:hint="@string/txtInputPhone"
+            android:inputType="phone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/txtPassword"
+            android:textColor="#000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etPhone_LoginSignup" />
+
+        <EditText
+            android:id="@+id/etPassword_LoginSignup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="24dp"
+            android:ems="10"
+            android:hint="@string/txtInputPassword"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/txtConfirmPassword"
+            android:textColor="#000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etPassword_LoginSignup" />
+
+        <EditText
+            android:id="@+id/etConfirmPassword_LoginSignup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="24dp"
+            android:ems="10"
+            android:hint="@string/txtInputConfirmPassword"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+        <Button
+            android:id="@+id/btOK_LoginSignup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/txtOK"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etConfirmPassword_LoginSignup" />
+
+        <ImageView
+            android:id="@+id/btEmailCancel_LoginSignup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_cancel"
+            app:layout_constraintBottom_toBottomOf="@+id/etEmail_LoginSignup"
+            app:layout_constraintEnd_toEndOf="@+id/etEmail_LoginSignup"
+            app:layout_constraintTop_toTopOf="@+id/etEmail_LoginSignup" />
+
+        <ImageView
+            android:id="@+id/btPhoneCancel_LoginSignup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_cancel"
+            app:layout_constraintBottom_toBottomOf="@+id/etPhone_LoginSignup"
+            app:layout_constraintEnd_toEndOf="@+id/etPhone_LoginSignup"
+            app:layout_constraintTop_toTopOf="@+id/etPhone_LoginSignup" />
+
+        <ImageView
+            android:id="@+id/btPasswordCancel_LoginSignup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_cancel"
+            app:layout_constraintBottom_toBottomOf="@+id/etPassword_LoginSignup"
+            app:layout_constraintEnd_toEndOf="@+id/etPassword_LoginSignup"
+            app:layout_constraintTop_toTopOf="@+id/etPassword_LoginSignup" />
+
+        <ImageView
+            android:id="@+id/btConfirmPasswordlCancel_LoginSignup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_cancel"
+            app:layout_constraintBottom_toBottomOf="@+id/etConfirmPassword_LoginSignup"
+            app:layout_constraintEnd_toEndOf="@+id/etConfirmPassword_LoginSignup"
+            app:layout_constraintTop_toTopOf="@+id/etConfirmPassword_LoginSignup" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
