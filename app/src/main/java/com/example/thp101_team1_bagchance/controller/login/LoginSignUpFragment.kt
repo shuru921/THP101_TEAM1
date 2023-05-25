@@ -6,28 +6,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.example.thp101_team1_bagchance.R
+import com.example.thp101_team1_bagchance.databinding.FragmentLoginSignUpBinding
 import com.example.thp101_team1_bagchance.viewmodel.login.LoginSignUpViewModel
 
 class LoginSignUpFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = LoginSignUpFragment()
-    }
-
-    private lateinit var viewModel: LoginSignUpViewModel
-
+    private lateinit var binding: FragmentLoginSignUpBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_login_sign_up, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(LoginSignUpViewModel::class.java)
-        // TODO: Use the ViewModel
+    ): View {
+        val viewModel: LoginSignUpViewModel by viewModels()
+        binding = FragmentLoginSignUpBinding.inflate(inflater, container ,false)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
 }

@@ -9,12 +9,23 @@
         android:id="@+id/loginMainFragment"
         android:name="com.example.thp101_team1_bagchance.controller.login.LoginMainFragment"
         android:label="fragment_login_main"
-        tools:layout="@layout/fragment_login_main" />
+        tools:layout="@layout/fragment_login_main" >
+        <action
+            android:id="@+id/action_loginMainFragment_to_loginLoginFragment"
+            app:destination="@id/loginLoginFragment" />
+        <action
+            android:id="@+id/action_loginMainFragment_to_loginSignUpFragment"
+            app:destination="@id/loginSignUpFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginLoginFragment"
         android:name="com.example.thp101_team1_bagchance.controller.login.LoginLoginFragment"
         android:label="fragment_login_login"
-        tools:layout="@layout/fragment_login_login" />
+        tools:layout="@layout/fragment_login_login" >
+        <action
+            android:id="@+id/action_loginLoginFragment_to_loginForgetPasswordFragment"
+            app:destination="@id/loginForgetPasswordFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginSignUpFragment"
         android:name="com.example.thp101_team1_bagchance.controller.login.LoginSignUpFragment"
@@ -24,7 +35,11 @@
         android:id="@+id/loginForgetPasswordFragment"
         android:name="com.example.thp101_team1_bagchance.controller.login.LoginForgetPasswordFragment"
         android:label="fragment_login_forget_password"
-        tools:layout="@layout/fragment_login_forget_password" />
+        tools:layout="@layout/fragment_login_forget_password" >
+        <action
+            android:id="@+id/action_loginForgetPasswordFragment_to_loginResetPasswordFragment"
+            app:destination="@id/loginResetPasswordFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginResetPasswordFragment"
         android:name="com.example.thp101_team1_bagchance.controller.login.LoginResetPasswordFragment"

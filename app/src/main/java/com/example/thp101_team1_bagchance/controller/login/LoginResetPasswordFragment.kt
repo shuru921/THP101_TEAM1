@@ -6,28 +6,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.example.thp101_team1_bagchance.viewmodel.login.LoginResetPasswordViewModel
 import com.example.thp101_team1_bagchance.R
+import com.example.thp101_team1_bagchance.databinding.FragmentLoginResetPasswordBinding
 
 class LoginResetPasswordFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = LoginResetPasswordFragment()
-    }
-
-    private lateinit var viewModel: LoginResetPasswordViewModel
-
+    private lateinit var binding: FragmentLoginResetPasswordBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_login_reset_password, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(LoginResetPasswordViewModel::class.java)
-        // TODO: Use the ViewModel
+    ): View {
+        val viewModel: LoginResetPasswordViewModel by viewModels()
+        binding = FragmentLoginResetPasswordBinding.inflate(inflater, container, false)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
 }
