@@ -76,6 +76,9 @@
         <action
             android:id="@+id/action_postChooseFragment_to_postAlbumFragment"
             app:destination="@id/postAlbumFragment" />
+        <action
+            android:id="@+id/action_postChooseFragment_to_postNewContentFragment"
+            app:destination="@id/postNewContentFragment" />
     </fragment>
     <fragment
         android:id="@+id/postEditPhotoFragment"
