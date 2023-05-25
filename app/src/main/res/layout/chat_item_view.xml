@@ -1,47 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/itemLayout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
 
-
-    <androidx.cardview.widget.CardView
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.thp101_team1_bagchance.viewmodel.chat.ChatRoomViewModel" />
+    </data>
+<!--這邊我沒context往上宜先做個標記-->
+<!--把整個itemview設為點擊事件 clickable onclick 在寫方法-->
+    <FrameLayout
+        android:id="@+id/itemLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp">
 
-        <LinearLayout
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/ivAvatar_Chat"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                tools:srcCompat="@tools:sample/avatars" />
+            android:layout_height="wrap_content"
+            android:background="@color/search269AA151">
 
             <LinearLayout
-                android:layout_width="260dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tvId_Chat"
-                    android:layout_width="match_parent"
-                    android:layout_height="82dp"
-                    android:text="TextView" />
+                <ImageView
+                    android:id="@+id/ivAvatar_Chat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_enter"
+                    tools:srcCompat="@tools:sample/avatars" />
 
-                <TextView
-                    android:id="@+id/tvLastMessage_Chat"
-                    android:layout_width="match_parent"
-                    android:layout_height="101dp"
-                    android:text="TextView" />
+                <LinearLayout
+                    android:layout_width="260dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+<!--沒資料抓不了名字和最後訊息-->
+                    <TextView
+                        android:id="@+id/tvId_Chat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.friend.name}"/>
+
+                    <TextView
+                        android:id="@+id/tvLastMessage_Chat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="我先寫死"/>
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-</FrameLayout>
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
+</layout>
