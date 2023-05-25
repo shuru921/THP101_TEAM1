@@ -49,7 +49,7 @@ class ExploreStoryAdapter(private var storys: List<ExploreStory>) :
             bundle.putSerializable("story", story)
             itemView.setOnClickListener {
                 Navigation.findNavController(it)
-                    .navigate(R.id.action_exploreMainFragment_to_exploreStoryFragment)
+                    .navigate(R.id.action_exploreMainFragment_to_exploreStoryFragment,bundle)
             }
         }
     }
