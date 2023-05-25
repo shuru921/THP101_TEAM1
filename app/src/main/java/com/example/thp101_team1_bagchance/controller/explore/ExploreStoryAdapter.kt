@@ -18,7 +18,7 @@ class ExploreStoryAdapter(private var storys: List<ExploreStory>) :
     /**
      * 之後這邊會寫方法後更新貼文列表
      */
-    fun updateFriends(storys: List<ExploreStory>) {
+    fun updateStorys(storys: List<ExploreStory>) {
         this.storys = storys
         notifyDataSetChanged()
     }

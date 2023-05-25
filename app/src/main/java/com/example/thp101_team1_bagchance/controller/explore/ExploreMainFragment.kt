@@ -38,7 +38,7 @@ class ExploreMainFragment : Fragment() {
                 if (rvstory.adapter == null) {
                     rvstory.adapter = ExploreStoryAdapter(storys)
                 } else {
-                    (rvstory.adapter as ExploreStoryAdapter).updateFriends(storys)
+                    (rvstory.adapter as ExploreStoryAdapter).updateStorys(storys)
                 }
             }
 
