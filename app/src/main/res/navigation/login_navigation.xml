@@ -30,7 +30,11 @@
         android:id="@+id/loginSignUpFragment"
         android:name="com.example.thp101_team1_bagchance.controller.login.LoginSignUpFragment"
         android:label="fragment_login_sign_up"
-        tools:layout="@layout/fragment_login_sign_up" />
+        tools:layout="@layout/fragment_login_sign_up" >
+        <action
+            android:id="@+id/action_loginSignUpFragment_to_loginLoginFragment"
+            app:destination="@id/loginLoginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginForgetPasswordFragment"
         android:name="com.example.thp101_team1_bagchance.controller.login.LoginForgetPasswordFragment"

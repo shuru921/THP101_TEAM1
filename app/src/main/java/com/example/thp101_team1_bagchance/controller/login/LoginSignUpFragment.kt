@@ -1,5 +1,7 @@
 package com.example.thp101_team1_bagchance.controller.login
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -35,11 +37,31 @@ class LoginSignUpFragment : Fragment() {
                 inputvalid()
             }
 
+            val onClickListener = DialogInterface.OnClickListener { dialog, which ->
+                val buttonText = when (which) {
+                    AlertDialog.BUTTON_POSITIVE -> R.string.txtdialog_positive_button
+                    else -> ""
+                }
+
+                dialog.cancel()
+
+                if (which == AlertDialog.BUTTON_POSITIVE) {
+                    Navigation.findNavController(view).navigate(
+                        R.id.action_loginSignUpFragment_to_loginLoginFragment
+                    )
+                }
+            }
             btOKLoginSignup.setOnClickListener {
                 if (!inputvalid()) {
                     return@setOnClickListener
                 }
-                //這邊應該要彈出視窗告知使用者註冊成功，然後在彈出視窗點擊確認後再進入個人資料填寫頁面
+
+                android.app.AlertDialog.Builder(view.context)
+                    .setTitle(R.string.txtdialog_title_notify)
+                    .setMessage(R.string.txtdialog_message_logingsignup)
+                    .setPositiveButton(R.string.txtdialog_positive_button, onClickListener)
+                    .setCancelable(false)
+                    .show()
             }
         }
     }

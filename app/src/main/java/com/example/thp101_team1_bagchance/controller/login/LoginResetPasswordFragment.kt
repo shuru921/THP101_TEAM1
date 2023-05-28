@@ -35,17 +35,33 @@ class LoginResetPasswordFragment : Fragment() {
             viewModel?.confirmnewpassword?.observe(viewLifecycleOwner) {
                 inputvalid()
             }
+            
+            val onClickListener = DialogInterface.OnClickListener { dialog, which ->
+                val buttonText = when (which) {
+                    AlertDialog.BUTTON_POSITIVE -> getString(R.string.txtdialog_positive_button)
+                    else -> ""
+                }
+
+                dialog.cancel()
+
+                if (which == AlertDialog.BUTTON_POSITIVE) {
+                    Navigation.findNavController(view).navigate(
+                        R.id.action_loginResetPasswordFragment_to_loginLoginFragment
+                    )
+                }
+            }
 
             btOKLoginResetPassword.setOnClickListener {
                 if (!inputvalid()) {
                     return@setOnClickListener
                 }
-                showAlertDialog()
 
-                Navigation.findNavController(it).navigate(
-                    R.id.action_loginResetPasswordFragment_to_loginLoginFragment
-                )
-                //這邊按下確認且沒有問題應該要彈出視窗告知使用者重設密碼成功，然後在彈出視窗點擊確認才跳到LoginLogin
+                android.app.AlertDialog.Builder(view.context)
+                    .setTitle(R.string.txtdialog_title_notify)
+                    .setMessage(R.string.txtdialog_message_logingresetpassword)
+                    .setPositiveButton(R.string.txtdialog_positive_button, onClickListener)
+                    .setCancelable(false)
+                    .show()
             }
         }
     }
@@ -65,15 +81,5 @@ class LoginResetPasswordFragment : Fragment() {
             }
         }
         return valid
-    }
-
-    private fun showAlertDialog() {
-        val alertDialog = AlertDialog.Builder(requireContext())
-        alertDialog.setTitle(getString(R.string.txtdialog_title_notify))
-        alertDialog.setMessage(getString(R.string.txtdialog_message_logingresetpassword))
-        alertDialog.setPositiveButton(getString(R.string.txtdialog_positive_button)) {
-            dialog: DialogInterface, which: Int ->
-            //這裡是點擊確認後應該要導至LoginLogin頁面
-        }
     }
 }
