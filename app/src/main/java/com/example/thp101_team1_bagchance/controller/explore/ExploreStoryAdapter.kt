@@ -18,7 +18,7 @@ class ExploreStoryAdapter(private var storys: List<ExploreStory>) :
     /**
      * 之後這邊會寫方法後更新貼文列表
      */
-    fun updateFriends(storys: List<ExploreStory>) {
+    fun updateStorys(storys: List<ExploreStory>) {
         this.storys = storys
         notifyDataSetChanged()
     }
@@ -49,7 +49,7 @@ class ExploreStoryAdapter(private var storys: List<ExploreStory>) :
             bundle.putSerializable("story", story)
             itemView.setOnClickListener {
                 Navigation.findNavController(it)
-                    .navigate(R.id.action_exploreMainFragment_to_exploreStoryFragment)
+                    .navigate(R.id.action_exploreMainFragment_to_exploreStoryFragment,bundle)
             }
         }
     }

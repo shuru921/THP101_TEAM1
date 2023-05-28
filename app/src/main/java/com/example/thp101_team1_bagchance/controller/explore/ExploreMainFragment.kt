@@ -18,6 +18,7 @@ import com.example.thp101_team1_bagchance.viewmodel.explore.ExploreStoryViewMode
 
 class ExploreMainFragment : Fragment() {
     private lateinit var binding: FragmentExploreMainBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -30,6 +31,8 @@ class ExploreMainFragment : Fragment() {
         return binding.root
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         with(binding) {
             rvstory.layoutManager = LinearLayoutManager(requireContext())
@@ -38,7 +41,7 @@ class ExploreMainFragment : Fragment() {
                 if (rvstory.adapter == null) {
                     rvstory.adapter = ExploreStoryAdapter(storys)
                 } else {
-                    (rvstory.adapter as ExploreStoryAdapter).updateFriends(storys)
+                    (rvstory.adapter as ExploreStoryAdapter).updateStorys(storys)
                 }
             }
 

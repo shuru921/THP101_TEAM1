@@ -76,6 +76,9 @@
         <action
             android:id="@+id/action_postChooseFragment_to_postAlbumFragment"
             app:destination="@id/postAlbumFragment" />
+        <action
+            android:id="@+id/action_postChooseFragment_to_postNewContentFragment"
+            app:destination="@id/postNewContentFragment" />
     </fragment>
     <fragment
         android:id="@+id/postEditPhotoFragment"
@@ -188,7 +191,7 @@
         tools:layout="@layout/fragment_setting_change_mail" />
     <fragment
         android:id="@+id/exploreStoryFragment"
-        android:name="com.example.thp101_team1_bagchance.ExploreStoryFragment"
+        android:name="com.example.thp101_team1_bagchance.controller.explore.ExploreStoryFragment"
         android:label="fragment_explore_story"
         tools:layout="@layout/fragment_explore_story" />
 </navigation>

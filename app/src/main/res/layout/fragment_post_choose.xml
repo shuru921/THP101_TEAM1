@@ -9,10 +9,11 @@
     <!-- TODO: Update blank fragment layout -->
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageViewChoose_Post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/choose"
+        app:layout_constraintBottom_toTopOf="@+id/btPickPicture_Post"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
@@ -22,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="612dp" />
+        app:layout_constraintGuide_end="588dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -39,7 +40,7 @@
         app:layout_constraintGuide_begin="257dp" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/btPickPicture_Post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/choosealbum"
@@ -48,12 +49,13 @@
         app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/btPhotograph_Post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/choosecamera"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btPickPicture_Post" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
