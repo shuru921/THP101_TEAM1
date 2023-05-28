@@ -44,7 +44,11 @@
         android:id="@+id/loginResetPasswordFragment"
         android:name="com.example.thp101_team1_bagchance.controller.login.LoginResetPasswordFragment"
         android:label="fragment_login_reset_password"
-        tools:layout="@layout/fragment_login_reset_password" />
+        tools:layout="@layout/fragment_login_reset_password" >
+        <action
+            android:id="@+id/action_loginResetPasswordFragment_to_loginLoginFragment"
+            app:destination="@id/loginLoginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginPersonalInformationFragment"
         android:name="com.example.thp101_team1_bagchance.controller.login.LoginPersonalInformationFragment"

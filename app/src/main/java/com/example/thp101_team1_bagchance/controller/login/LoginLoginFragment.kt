@@ -42,6 +42,12 @@ class LoginLoginFragment : Fragment() {
 //                    R.id.
 //                )
             }
+
+            btForgetPasswordLoginLogin.setOnClickListener {
+                Navigation.findNavController(it).navigate(
+                    R.id.action_loginLoginFragment_to_loginForgetPasswordFragment
+                )
+            }
         }
     }
 

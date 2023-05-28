@@ -37,4 +37,7 @@
     <string name="txtBirthday">生日</string>
     <string name="txtGender">性別</string>
     <string name="txtArea">地區</string>
+    <string name="txtdialog_title_notify">通知</string>
+    <string name="txtdialog_message_logingresetpassword">重設密碼成功</string>
+    <string name="txtdialog_positive_button">確認</string>
 </resources>
