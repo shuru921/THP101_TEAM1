@@ -1,28 +1,36 @@
 package com.example.thp101_team1_bagchance.controller.chat
 
 import android.Manifest
+import android.app.Activity
+import android.content.Intent
+import android.graphics.BitmapFactory
+import android.graphics.ImageDecoder
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.thp101_team1_bagchance.Friend
+import com.example.thp101_team1_bagchance.Message
 import com.example.thp101_team1_bagchance.R
 import com.example.thp101_team1_bagchance.databinding.FragmentChatRoomBinding
 import com.example.thp101_team1_bagchance.viewmodel.chat.ChatRoomViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.coroutines.*
 import java.io.File
+import java.io.IOException
 import java.lang.Runnable
 import java.util.*
 
@@ -34,9 +42,11 @@ class ChatRoomFragment : Fragment(),  View.OnTouchListener {
 //    private var mediaPlayer: MediaPlayer? = null
     private var recordGranted = false
     private lateinit var file: File
-    private val timer: Timer? = null
     private var durationInSeconds = 0
     private var job: Job? = null
+    private lateinit var camerafile: File
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -76,7 +86,18 @@ class ChatRoomFragment : Fragment(),  View.OnTouchListener {
                     bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
                 }
                 // TODO: bottomSheet String還沒加 
-                included2.tvcameraChat.setOnClickListener {  }
+                included2.tvcameraChat.setOnClickListener {
+                    val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                    camerafile = File(requireContext().getExternalFilesDir(null), "picture.jpg")
+                    // Android 7開始，指定拍照存檔路徑要改使用FileProvider
+                    val contentUri = FileProvider.getUriForFile(
+                        requireContext(), requireContext().packageName, file
+                    )
+                    // 拍照前指定存檔路徑就可取得原圖而非縮圖
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri)
+                    takePictureLargeLauncher.launch(contentUri)
+//                    takePictureLargeLauncher.launch(intent)
+                }
 
                 included2.tvalbumChat.setOnClickListener {  }
             }
@@ -212,5 +233,41 @@ override fun onTouch(v: View?, event: MotionEvent?): Boolean {
             binding.included.tvTimeChat.text = durationText
         }
     }
+//      u
+    private var takePictureLargeLauncher =
+        registerForActivityResult(ActivityResultContracts.TakePicture()) { result ->
+            // Android 9之前使用BitmapFactory；Android 9開始使用ImageDecoder
+            if (result) {
+                val list = binding.viewModel?.messagelist?.value ?: listOf()
+                val mutableList = list.toMutableList()
+                mutableList.add(Message.Limage(file.path))
+                binding.viewModel?.messagelist?.value = mutableList
+//                with(binding) {
+//                    var text = ""
+//                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+//                        val bitmap = BitmapFactory.decodeFile(file.path)
+//                        imageView.setImageBitmap(bitmap)
+//                        val width = bitmap.width
+//                        val height = bitmap.height
+//                    } else {
+//                        val listener =
+//                            ImageDecoder.OnHeaderDecodedListener { decoder, info, source ->
+//                                val mimeType = info.mimeType
+//                                val width = info.size.width
+//                                val height = info.size.height
+//                            }
+//                        // 取得圖片來源
+//                        val source = ImageDecoder.createSource(file)
+//                        try {
+//                            // 取得Bitmap並顯示
+//                            val bitmap = ImageDecoder.decodeBitmap(source, listener)
+//                            imageView.setImageBitmap(bitmap)
+//                        } catch (e: IOException) {
+//                            e.printStackTrace()
+//                        }
+//                    }
+//                }
+            }
+        }
 }
 
