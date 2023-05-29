@@ -34,28 +34,22 @@ class ExploreMainFragment : Fragment() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+
+
         with(binding) {
             rvstory.layoutManager = LinearLayoutManager(requireContext())
-            viewModel?.storys?.observe(viewLifecycleOwner) { storys ->
+            viewModel?.mainstorys?.observe(viewLifecycleOwner) { mainstorys ->
                 // adapter為null要建立新的adapter；之後只要呼叫updateFriends(friends)即可
                 if (rvstory.adapter == null) {
-                    rvstory.adapter = ExploreStoryAdapter(storys)
+                    rvstory.adapter = ExploreMainStoryAdapter(mainstorys)
                 } else {
-                    (rvstory.adapter as ExploreStoryAdapter).updateStorys(storys)
+                    (rvstory.adapter as ExploreMainStoryAdapter).updatemainStorys(mainstorys)
                 }
             }
 
-//            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-//                // 輸入的文字改變時呼叫
-//                override fun onQueryTextChange(newText: String?): Boolean {
-//                    viewModel?.search(newText)
-//                    return true
-//                }
-//                // 點擊虛擬鍵盤上的提交鈕時呼叫
-//                override fun onQueryTextSubmit(text: String): Boolean {
-//                    return false
-//                }
-//            })
         }
+
+
     }
 }

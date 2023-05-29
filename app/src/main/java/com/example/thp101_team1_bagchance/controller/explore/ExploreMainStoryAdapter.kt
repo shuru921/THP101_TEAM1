@@ -7,49 +7,48 @@ import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.thp101_team1_bagchance.R
-import com.example.thp101_team1_bagchance.databinding.FragmentExploreMainBinding
+import com.example.thp101_team1_bagchance.databinding.FragmentExploreMainStoryBinding
 import com.example.thp101_team1_bagchance.databinding.FragmentExploreStoryBinding
-import com.example.thp101_team1_bagchance.databinding.FragmentExploreStoryCommentBinding
-import com.example.thp101_team1_bagchance.viewmodel.explore.ExploreComment
+import com.example.thp101_team1_bagchance.viewmodel.explore.ExploreMainStory
+import com.example.thp101_team1_bagchance.viewmodel.explore.ExploreMainStoryViewModel
 import com.example.thp101_team1_bagchance.viewmodel.explore.ExploreStory
-import com.example.thp101_team1_bagchance.viewmodel.explore.ExploreStoryCommentViewModel
 import com.example.thp101_team1_bagchance.viewmodel.explore.ExploreStoryViewModel
 
-class ExploreStoryAdapter(private var storys: List<ExploreStory>) :
-    RecyclerView.Adapter<ExploreStoryAdapter.ExploreStoryViewHolder>() {
+class ExploreMainStoryAdapter(private var mainstorys: List<ExploreMainStory>) :
+    RecyclerView.Adapter<ExploreMainStoryAdapter.ExploreMainStoryViewHolder>() {
 
     /**
      * 之後這邊會寫方法後更新貼文列表
      */
-    fun updateStorys(storys: List<ExploreStory>) {
-        this.storys = storys
+    fun updatemainStorys(mainstorys: List<ExploreMainStory>) {
+        this.mainstorys = mainstorys
         notifyDataSetChanged()
     }
 
-    class ExploreStoryViewHolder(val itemViewBinding : FragmentExploreStoryBinding) :
+    class ExploreMainStoryViewHolder(val itemViewBinding : FragmentExploreMainStoryBinding) :
         RecyclerView.ViewHolder(itemViewBinding.root)
 
     override fun getItemCount(): Int {
-        return storys.size
+        return mainstorys.size
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExploreStoryViewHolder {
-        val itemViewBinding = FragmentExploreStoryBinding.inflate(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExploreMainStoryViewHolder {
+        val itemViewBinding = FragmentExploreMainStoryBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
-        itemViewBinding.viewModel = ExploreStoryViewModel()
+        itemViewBinding.viewModel = ExploreMainStoryViewModel()
         // 設定lifecycleOwner方能監控LiveData資料變化，layout檔案的view才會更新顯示
         itemViewBinding.lifecycleOwner = parent.findViewTreeLifecycleOwner()
-        return ExploreStoryViewHolder(itemViewBinding)
+        return ExploreMainStoryViewHolder(itemViewBinding)
     }
 
-    override fun onBindViewHolder(holder: ExploreStoryViewHolder, position: Int) {
-        val story = storys[position]
+    override fun onBindViewHolder(holder: ExploreMainStoryViewHolder, position: Int) {
+        val mainstory = mainstorys[position]
         with(holder) {
             // 將欲顯示的friend物件指派給LiveData，就會自動更新layout檔案的view顯示
-            itemViewBinding.viewModel?.story?.value = story
+            itemViewBinding.viewModel?.mainstory?.value = mainstory
             val bundle = Bundle()
-            bundle.putSerializable("story", story)
+            bundle.putSerializable("mainstory", mainstory)
             itemView.setOnClickListener {
                 Navigation.findNavController(it)
                     .navigate(R.id.action_exploreMainFragment_to_exploreStoryFragment,bundle)
