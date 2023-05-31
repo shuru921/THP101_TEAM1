@@ -1,7 +1,10 @@
 package com.example.thp101_team1_bagchance.controller.chat
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.media.MediaRecorder
 import android.os.Build
 import android.os.Bundle
@@ -15,24 +18,28 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.thp101_team1_bagchance.ChatMessageType
+import com.example.thp101_team1_bagchance.viewmodel.chat.ChatMessageType
 import com.example.thp101_team1_bagchance.R
-import com.example.thp101_team1_bagchance.SelectChat
+import com.example.thp101_team1_bagchance.viewmodel.chat.SelectChat
 import com.example.thp101_team1_bagchance.databinding.FragmentChatRoomBinding
 import com.example.thp101_team1_bagchance.viewmodel.chat.ChatRoomViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.coroutines.*
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.util.*
 
 
 class ChatRoomFragment : Fragment(),  View.OnTouchListener {
     private lateinit var binding: FragmentChatRoomBinding
+//    存錄音檔位置名稱
     private val fileName = "sample.3gp"
     private var mediaRecorder: MediaRecorder? = null
-//    private var mediaPlayer: MediaPlayer? = null
+// fixme   private var mediaPlayer: MediaPlayer? = null 還沒寫播放
     private var recordGranted = false
+//    錄音檔路徑
     private lateinit var file: File
     private var durationInSeconds = 0
     private var job: Job? = null
@@ -69,30 +76,39 @@ class ChatRoomFragment : Fragment(),  View.OnTouchListener {
                     rvMessageChat.adapter = ChatRoomAdapter(it)
                 } else {
                     (rvMessageChat.adapter as ChatRoomAdapter).update(it)
+//                     获取 RecyclerView 的 LayoutManager 对象
+                    val layoutManager = rvMessageChat.layoutManager
+
+//            滚动到最后一个项的位置
+                    val lastPosition = ChatRoomAdapter(it).itemCount - 1
+
+//            使用 LayoutManager 对象滚动 RecyclerView
+                    if (layoutManager is LinearLayoutManager) {
+                        layoutManager.scrollToPosition(lastPosition)
+                    }
                 }
             }
 
             ivPhotoChat.setOnClickListener {
-                // TODO: 照片或拍照得下方彈出篩選 一樣對話框得加入格式(縮圖)
                 val bottomSheetBehavior = BottomSheetBehavior.from(included2.photobottomSheet)
                 if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_EXPANDED) {
                     bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
                 }
-                // TODO: bottomSheet String還沒加 
                 included2.tvcameraChat.setOnClickListener {
                     val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                     camerafile = File(requireContext().getExternalFilesDir(null), "picture.jpg")
                     // Android 7開始，指定拍照存檔路徑要改使用FileProvider
                     val contentUri = FileProvider.getUriForFile(
-                        requireContext(), requireContext().packageName, file
+                        requireContext(), requireContext().packageName, camerafile
                     )
                     // 拍照前指定存檔路徑就可取得原圖而非縮圖
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri)
                     takePictureLargeLauncher.launch(contentUri)
+
                 }
 
                 included2.tvalbumChat.setOnClickListener {
-                    // TODO: 相簿選相片 
+                    // fixme: 相簿選相片
                 }
             }
             ivRecordingChat.setOnClickListener {
@@ -104,19 +120,22 @@ class ChatRoomFragment : Fragment(),  View.OnTouchListener {
                  included.ivRecordChat.setOnTouchListener(this@ChatRoomFragment)
             }
             ivSendChat.setOnClickListener {
-                // TODO: 要把資料傳給資料庫 並且傳入對話框內
+
                 val viewModel = binding?.viewModel
-                // TODO: null可以傳
-                //FIXME 卷軸維持在底部
-                // TODO: 清空
                 if (viewModel is ChatRoomViewModel) {
                     val test = viewModel.messagelist.value?.toMutableList() ?: mutableListOf()
-                    test.add(ChatMessageType.Rtext(text = binding?.viewModel?.text?.value.toString()))
-                    viewModel.messagelist.value = test
+                    if (binding?.viewModel?.text?.value == null || binding?.viewModel?.text?.value == "") {
+                        return@setOnClickListener
+                    }else {
+                        test.add(ChatMessageType.Rtext(text = binding?.viewModel?.text?.value.toString()))
+                        viewModel.messagelist.value = test
+                    }
                 }
+                binding?.viewModel?.text?.value = ""
+                // fixme: 要把資料傳給資料庫 並且傳入對話框內
             }
         }
-//        binding.viewModel?.getNewMessage() 刷新先註解
+//    fixme    binding.viewModel?.getNewMessage() 10秒刷新先註解
     }
 
     override fun onStart() {
@@ -129,8 +148,8 @@ class ChatRoomFragment : Fragment(),  View.OnTouchListener {
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
             recordGranted = if (result) true
             else {
-                // TODO: 還沒加入String 
-                Toast.makeText(requireContext(),"請授權", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),R.string.txtrecording, Toast.LENGTH_SHORT).show()
+//                fixme 處理沒授權後再次進入只會跳吐司
                 false
             }
         }
@@ -146,7 +165,7 @@ override fun onTouch(v: View?, event: MotionEvent?): Boolean {
                 MotionEvent.ACTION_UP -> {
                     stopRecording()
                     stopRecordingTimer()
-                    // TODO: 发送录音至聊天室
+                    // fixme: 发送录音至聊天室
                 }
             }
         }
@@ -201,8 +220,6 @@ override fun onTouch(v: View?, event: MotionEvent?): Boolean {
     }
 
 //          錄音介面計時器
-
-
     private fun startRecordingTimer() {
         durationInSeconds = 0
         // 创建一个 Job 对象用于管理协程的生命周期
@@ -226,7 +243,7 @@ override fun onTouch(v: View?, event: MotionEvent?): Boolean {
         job = null
     }
 
-    //          textview刷新方法
+    //          計時textview刷新方法
     private fun updateDurationTextView() {
         val minutes = durationInSeconds / 60
         val seconds = durationInSeconds % 60
@@ -237,14 +254,23 @@ override fun onTouch(v: View?, event: MotionEvent?): Boolean {
             binding.included.tvTimeChat.text = durationText
         }
     }
-//      u
+
+
     private var takePictureLargeLauncher =
         registerForActivityResult(ActivityResultContracts.TakePicture()) { result ->
-            // Android 9之前使用BitmapFactory；Android 9開始使用ImageDecoder
-            if (result) {
+            if (result != null) {
                 val list = binding.viewModel?.messagelist?.value ?: listOf()
                 val mutableList = list.toMutableList()
-//                mutableList.add(ChatMessageType.Limage(file.path))
+
+                val options = BitmapFactory.Options()
+                options.inSampleSize = 3
+
+                val bitmap = BitmapFactory.decodeFile(camerafile.absolutePath, options)
+                val byteArrayOutputStream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+                val byteArray = byteArrayOutputStream.toByteArray()
+//              fixme 要改為判斷uid
+                mutableList.add(ChatMessageType.Rimage(image = byteArray))
                 binding.viewModel?.messagelist?.value = mutableList
             }
         }

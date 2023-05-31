@@ -41,4 +41,9 @@
     <string name="txtdialog_message_logingresetpassword">重設密碼成功</string>
     <string name="txtdialog_positive_button">確認</string>
     <string name="txtdialog_message_logingsignup">註冊成功</string>
+
+    <string name="txtqueryHint">請輸入好友姓名</string>
+    <string name="txtcamera">相機</string>
+    <string name="txtalbum">相簿</string>
+    <string name="txtrecording">請授權錄音</string>
 </resources>

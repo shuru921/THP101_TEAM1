@@ -3,9 +3,6 @@ package com.example.thp101_team1_bagchance.viewmodel.chat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.thp101_team1_bagchance.ChatMessage
-import com.example.thp101_team1_bagchance.ChatMessageType
-import com.example.thp101_team1_bagchance.SelectChat
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -29,11 +26,11 @@ class ChatRoomViewModel : ViewModel() {
         messageList.add(ChatMessage(1,2,3,"aaa",null,null,"I",null).toChatMessageType(5))
         messagelist.value = messageList
     }
-
+//         每10秒刷新資料以讓聊天室更新
     fun getNewMessage() {
         viewModelScope.launch {
             while (isActive) {
-                // 抓資料的方法
+                //  fixme 偉銘的方法貼這 下面34行是範例記得要修改 36行要判斷uid也要修改(判斷置左置右)
                 val chatMessage = ChatMessage(id = 0, sendUid = 0, chatId = 0, messageStatus = "")
                 val oldMessageList = messagelist.value ?: listOf()
                 messagelist.value = oldMessageList.plus(chatMessage.toChatMessageType(123))

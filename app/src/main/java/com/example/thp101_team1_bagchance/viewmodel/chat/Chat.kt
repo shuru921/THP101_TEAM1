@@ -1,4 +1,4 @@
-package com.example.thp101_team1_bagchance
+package com.example.thp101_team1_bagchance.viewmodel.chat
 
 import java.io.Serializable
 import java.sql.Timestamp

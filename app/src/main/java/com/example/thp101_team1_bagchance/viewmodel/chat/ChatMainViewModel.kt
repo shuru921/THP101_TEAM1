@@ -2,7 +2,6 @@ package com.example.thp101_team1_bagchance.viewmodel.chat
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.thp101_team1_bagchance.SelectChat
 import java.sql.Timestamp
 
 
@@ -29,7 +28,7 @@ class ChatMainViewModel : ViewModel() {
             val searchchatList = mutableListOf<SelectChat>()
 //    走訪出來的是一個個聊天室 判斷搜尋條件並且不分大小寫
             for (i in chats) {
-                // TODO:  inviteUidname 這裡要寫判斷 判斷自己是邀請人還是被邀請人
+                // fixme:  inviteUidname 這裡要寫判斷 判斷自己是邀請人還是被邀請人
                 if (i.inviteUidname.contains(newText,true)){
                     searchchatList.add(i)
                 }

@@ -7,7 +7,7 @@ import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.thp101_team1_bagchance.R
-import com.example.thp101_team1_bagchance.SelectChat
+import com.example.thp101_team1_bagchance.viewmodel.chat.SelectChat
 import com.example.thp101_team1_bagchance.databinding.ChatItemViewBinding
 import com.example.thp101_team1_bagchance.viewmodel.chat.ChatRoomViewModel
 
@@ -40,7 +40,6 @@ class ChatMainAdapter(var chats: List<SelectChat>)
     }
 
     override fun onBindViewHolder(holder: FriendViewHolder, position: Int) {
-//      每次重複執行丟入對應資料[]裡面那叫索引
         val chat = chats[position]
         with(holder) {
             itemviewbinding.viewModel?.chatmaterial?.value = chat

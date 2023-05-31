@@ -24,6 +24,7 @@
             android:layout_marginEnd="16dp"
             android:background="@color/search269AA151"
             android:iconifiedByDefault="false"
+            android:queryHint="@string/txtqueryHint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
