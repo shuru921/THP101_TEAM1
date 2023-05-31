@@ -44,18 +44,18 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical">
-<!--沒資料抓不了名字和最後訊息-->
+<!--52得修改-->
                     <TextView
                         android:id="@+id/tvId_Chat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.friend.name}"/>
-
+                        android:text="@{viewModel.chatmaterial.inviteUidname}"/>
+<!--58行 要判斷訊息是哪種-->
                     <TextView
                         android:id="@+id/tvLastMessage_Chat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="我先寫死"/>
+                        android:text="@{viewModel.chatmaterial.message}"/>
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

@@ -1,16 +1,10 @@
 package com.example.thp101_team1_bagchance.controller.chat
 
 import android.Manifest
-import android.app.Activity
 import android.content.Intent
-import android.graphics.BitmapFactory
-import android.graphics.ImageDecoder
-import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -22,16 +16,14 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.thp101_team1_bagchance.Friend
-import com.example.thp101_team1_bagchance.Message
+import com.example.thp101_team1_bagchance.ChatMessageType
 import com.example.thp101_team1_bagchance.R
+import com.example.thp101_team1_bagchance.SelectChat
 import com.example.thp101_team1_bagchance.databinding.FragmentChatRoomBinding
 import com.example.thp101_team1_bagchance.viewmodel.chat.ChatRoomViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.coroutines.*
 import java.io.File
-import java.io.IOException
-import java.lang.Runnable
 import java.util.*
 
 
@@ -60,17 +52,18 @@ class ChatRoomFragment : Fragment(),  View.OnTouchListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         arguments?.let {
-            it.getSerializable("friend")?.let {
+            it.getSerializable("chatmaterial")?.let {
 
-//              把聊天室基本資料傳入
-                binding.viewModel?.friend?.value = it as Friend
+//              帶入暱稱 頭貼
+                binding.viewModel?.chatmaterial?.value = it as SelectChat
             }
         }
 
         with(binding) {
+//            設定垂直布局
             rvMessageChat.layoutManager = LinearLayoutManager(requireContext())
+//            監控聊天室訊息變化
             viewModel?.messagelist?.observe(viewLifecycleOwner) {
                 if (rvMessageChat.adapter == null) {
                     rvMessageChat.adapter = ChatRoomAdapter(it)
@@ -96,10 +89,11 @@ class ChatRoomFragment : Fragment(),  View.OnTouchListener {
                     // 拍照前指定存檔路徑就可取得原圖而非縮圖
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri)
                     takePictureLargeLauncher.launch(contentUri)
-//                    takePictureLargeLauncher.launch(intent)
                 }
 
-                included2.tvalbumChat.setOnClickListener {  }
+                included2.tvalbumChat.setOnClickListener {
+                    // TODO: 相簿選相片 
+                }
             }
             ivRecordingChat.setOnClickListener {
                 val bottomSheetBehavior = BottomSheetBehavior.from(included.bottomSheet)
@@ -111,8 +105,18 @@ class ChatRoomFragment : Fragment(),  View.OnTouchListener {
             }
             ivSendChat.setOnClickListener {
                 // TODO: 要把資料傳給資料庫 並且傳入對話框內
+                val viewModel = binding?.viewModel
+                // TODO: null可以傳
+                //FIXME 卷軸維持在底部
+                // TODO: 清空
+                if (viewModel is ChatRoomViewModel) {
+                    val test = viewModel.messagelist.value?.toMutableList() ?: mutableListOf()
+                    test.add(ChatMessageType.Rtext(text = binding?.viewModel?.text?.value.toString()))
+                    viewModel.messagelist.value = test
+                }
             }
         }
+//        binding.viewModel?.getNewMessage() 刷新先註解
     }
 
     override fun onStart() {
@@ -240,33 +244,8 @@ override fun onTouch(v: View?, event: MotionEvent?): Boolean {
             if (result) {
                 val list = binding.viewModel?.messagelist?.value ?: listOf()
                 val mutableList = list.toMutableList()
-                mutableList.add(Message.Limage(file.path))
+//                mutableList.add(ChatMessageType.Limage(file.path))
                 binding.viewModel?.messagelist?.value = mutableList
-//                with(binding) {
-//                    var text = ""
-//                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
-//                        val bitmap = BitmapFactory.decodeFile(file.path)
-//                        imageView.setImageBitmap(bitmap)
-//                        val width = bitmap.width
-//                        val height = bitmap.height
-//                    } else {
-//                        val listener =
-//                            ImageDecoder.OnHeaderDecodedListener { decoder, info, source ->
-//                                val mimeType = info.mimeType
-//                                val width = info.size.width
-//                                val height = info.size.height
-//                            }
-//                        // 取得圖片來源
-//                        val source = ImageDecoder.createSource(file)
-//                        try {
-//                            // 取得Bitmap並顯示
-//                            val bitmap = ImageDecoder.decodeBitmap(source, listener)
-//                            imageView.setImageBitmap(bitmap)
-//                        } catch (e: IOException) {
-//                            e.printStackTrace()
-//                        }
-//                    }
-//                }
             }
         }
 }

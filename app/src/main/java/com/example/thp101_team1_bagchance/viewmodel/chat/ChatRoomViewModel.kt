@@ -1,53 +1,44 @@
 package com.example.thp101_team1_bagchance.viewmodel.chat
 
-import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.navigation.Navigation
-import com.example.thp101_team1_bagchance.Friend
-import com.example.thp101_team1_bagchance.Message
-import com.example.thp101_team1_bagchance.R
-import com.example.thp101_team1_bagchance.controller.chat.ChatMainAdapter
+import androidx.lifecycle.viewModelScope
+import com.example.thp101_team1_bagchance.ChatMessage
+import com.example.thp101_team1_bagchance.ChatMessageType
+import com.example.thp101_team1_bagchance.SelectChat
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 
 class ChatRoomViewModel : ViewModel() {
     //    Adapter綁定的資料 把選定的聊天室資料傳入用
-    val friend: MutableLiveData<Friend> by lazy { MutableLiveData<Friend>() }
+    val chatmaterial: MutableLiveData<SelectChat> by lazy { MutableLiveData<SelectChat>() }
 
     //    聊天輸入框
     val text: MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
-    //    照片路徑
-    val imageUrl: MutableLiveData<String> by lazy { MutableLiveData<String>() }
-
-    //    錄音檔
-    val audioUrl: MutableLiveData<String> by lazy { MutableLiveData<String>() }
-
     //        受監控訊息列表 變化後回傳
-    val messagelist: MutableLiveData<List<Message>> by lazy { MutableLiveData<List<Message>>() }
-
+    val messagelist: MutableLiveData<List<ChatMessageType>> by lazy { MutableLiveData<List<ChatMessageType>>() }
+//         假資料
     init {
-        val messageList = mutableListOf<Message>()
-        messageList.add(Message.Ltext(text = "aaaaa"))
-        messageList.add(Message.Ltext(text = "bbbb"))
-        messageList.add(Message.Ltext(text = "cccc"))
-        messageList.add(Message.Rtext(text = "aaaaaaaaa"))
-//        messageList.add(Message(3, toId = 1, text = "bbbbb"))
-//        messageList.add(Message(4, fromId = 1, text = "aaaaa"))
-//        messageList.add(Message(5, toId = 1, image = "cccccc"))
-//        messageList.add(Message(6, fromId = 1, record = "dddddd"))
-//        messageList.add(Message(7, fromId = 1, text = "aaaaa"))
-//        messageList.add(Message(8, toId = 1, text = "bbbbb"))
-//        messageList.add(Message(9, toId = 1, text = "bbbbb"))
-//        messageList.add(Message(10, fromId = 1, text = "aaaaa"))
-//        messageList.add(Message(11, toId = 1, image = "cccccc"))
-//        messageList.add(Message(12, fromId = 1, record = "dddddd"))
-//        messageList.add(Message(13, fromId = 1, text = "aaaaa"))
-//        messageList.add(Message(14, toId = 1, text = "bbbbb"))
-//        messageList.add(Message(15, toId = 1, text = "bbbbb"))
-//        messageList.add(Message(16, fromId = 1, text = "aaaaa"))
-//        messageList.add(Message(17, toId = 1, image = "cccccc"))
-//        messageList.add(Message(18, toId =1, record = "dddddd"))
+        val messageList = mutableListOf<ChatMessageType>()
+        messageList.add(ChatMessage(1,2,3,"aaa",null,null,"I",null).toChatMessageType(3))
+        messageList.add(ChatMessage(1,2,3,"aaa",null,null,"I",null).toChatMessageType(3))
+        messageList.add(ChatMessage(1,2,3,"aaa",null,null,"I",null).toChatMessageType(3))
+        messageList.add(ChatMessage(1,2,3,"aaa",null,null,"I",null).toChatMessageType(5))
+        messageList.add(ChatMessage(1,2,3,"aaa",null,null,"I",null).toChatMessageType(5))
         messagelist.value = messageList
+    }
+
+    fun getNewMessage() {
+        viewModelScope.launch {
+            while (isActive) {
+                // 抓資料的方法
+                val chatMessage = ChatMessage(id = 0, sendUid = 0, chatId = 0, messageStatus = "")
+                val oldMessageList = messagelist.value ?: listOf()
+                messagelist.value = oldMessageList.plus(chatMessage.toChatMessageType(123))
+                delay(10000)
+            }
+        }
     }
 }
