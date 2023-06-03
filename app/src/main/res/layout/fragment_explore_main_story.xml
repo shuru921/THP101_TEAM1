@@ -45,7 +45,7 @@
                     android:layout_width="96dp"
                     android:layout_height="96dp"
                     android:layout_weight="1"
-                    app:imageResource="@{viewModel.mainstory.exlporeimageId}"
+
                     tools:src="@tools:sample/avatars" />
 
                 <LinearLayout
@@ -58,13 +58,13 @@
                         android:id="@+id/textView12"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.mainstory.explorename}" />
+                         />
 
                     <TextView
                         android:id="@+id/textView13"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.mainstory.exploredate}" />
+                         />
                 </LinearLayout>
 
             </LinearLayout>
@@ -74,7 +74,7 @@
                 android:layout_width="401dp"
                 android:layout_height="66dp"
                 android:layout_marginTop="12dp"
-                android:text="@{viewModel.mainstory.storytext}"
+
                 app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/linearLayout3"
@@ -85,7 +85,7 @@
                 android:layout_width="300dp"
                 android:layout_height="200dp"
                 android:layout_marginTop="88dp"
-                app:imageResource="@{viewModel.mainstory.storypic}"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.504"
                 app:layout_constraintStart_toStartOf="parent"

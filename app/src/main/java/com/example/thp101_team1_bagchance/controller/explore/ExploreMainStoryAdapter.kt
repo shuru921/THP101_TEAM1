@@ -1,6 +1,8 @@
 package com.example.thp101_team1_bagchance.controller.explore
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.findViewTreeLifecycleOwner
@@ -44,11 +46,16 @@ class ExploreMainStoryAdapter(private var mainstorys: List<ExploreMainStory>) :
 
     override fun onBindViewHolder(holder: ExploreMainStoryViewHolder, position: Int) {
         val mainstory = mainstorys[position]
+
         with(holder) {
+            val bitmap = BitmapFactory.decodeByteArray(mainstory.profile_pic, 0, mainstory.profile_pic.size)
+
+//            val bitmap = BitmapFactory.decodeByteArray(itemViewBinding.viewModel?.mainstory?.value?.profile_pic, 0, 100)
+            itemViewBinding.imageButton2.setImageBitmap(bitmap)
             // 將欲顯示的friend物件指派給LiveData，就會自動更新layout檔案的view顯示
             itemViewBinding.viewModel?.mainstory?.value = mainstory
             val bundle = Bundle()
-            bundle.putSerializable("mainstory", mainstory)
+//            bundle.putSerializable("mainstory", mainstory)
             itemView.setOnClickListener {
                 Navigation.findNavController(it)
                     .navigate(R.id.action_exploreMainFragment_to_exploreStoryFragment,bundle)
