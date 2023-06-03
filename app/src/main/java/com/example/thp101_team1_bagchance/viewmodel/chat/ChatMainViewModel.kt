@@ -2,19 +2,27 @@ package com.example.thp101_team1_bagchance.viewmodel.chat
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.thp101_team1_bagchance.LoginUser
+import com.google.gson.reflect.TypeToken
+import tw.idv.william.androidwebserver.core.service.requestTask
 import java.sql.Timestamp
 
 
 class ChatMainViewModel : ViewModel() {
+    //    假登入帳號
+    var user : LoginUser? = null
     //    完整聊天室列表 若判斷資料沒變化即回傳
-    val chats = mutableListOf<SelectChat>()
+    val chats : MutableList<SelectChat>
     //    受監控聊天室列表 變化後回傳
     val chatlist : MutableLiveData<List<SelectChat>> by lazy { MutableLiveData<List<SelectChat>>() }
     //    假資料
     init {
-        chats.add((SelectChat(1,1,2,"A", Timestamp(System.currentTimeMillis()),Timestamp(System.currentTimeMillis()),"aaa","bbb",null,null,"123",null,null)))
-        chats.add((SelectChat(1,1,3,"A", Timestamp(System.currentTimeMillis()),Timestamp(System.currentTimeMillis()),"aaa","ccc",null,null, "456",null,null)))
-        chats.add((SelectChat(1,1,4,"A", Timestamp(System.currentTimeMillis()),Timestamp(System.currentTimeMillis()),"aaa","ddd",null,null,"789",null,null)))
+//        chats.add((SelectChat(1,1,2,"A", Timestamp(System.currentTimeMillis()),Timestamp(System.currentTimeMillis()),"aaa","bbb",null,null,"123",null,null)))
+//        chats.add((SelectChat(1,1,3,"A", Timestamp(System.currentTimeMillis()),Timestamp(System.currentTimeMillis()),"aaa","ccc",null,null, "456",null,null)))
+//        chats.add((SelectChat(1,1,4,"A", Timestamp(System.currentTimeMillis()),Timestamp(System.currentTimeMillis()),"aaa","ddd",null,null,"789",null,null)))
+        val type = object : TypeToken<List<SelectChat>>(){}.type
+        user =  requestTask<LoginUser>("http://10.0.2.2:8080/test/*****", respBodyType = LoginUser::class.java)
+        chats =  requestTask<List<SelectChat>>("http://10.0.2.2:8080/test/findAll/${LoginUser.id}", respBodyType = type)!!.toMutableList()
         this.chatlist.value = chats
     }
 

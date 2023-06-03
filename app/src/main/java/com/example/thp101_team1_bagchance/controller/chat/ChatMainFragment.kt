@@ -1,6 +1,6 @@
 package com.example.thp101_team1_bagchance.controller.chat
 
-import androidx.lifecycle.ViewModelProvider
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,11 +9,9 @@ import android.view.ViewGroup
 import android.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.thp101_team1_bagchance.viewmodel.chat.ChatMainViewModel
-import com.example.thp101_team1_bagchance.R
 import com.example.thp101_team1_bagchance.databinding.FragmentChatMainBinding
-import com.example.thp101_team1_bagchance.databinding.FragmentSettingMainBinding
-import java.util.Objects
+import com.example.thp101_team1_bagchance.viewmodel.chat.ChatMainViewModel
+
 
 class ChatMainFragment : Fragment() {
     private lateinit var binding: FragmentChatMainBinding

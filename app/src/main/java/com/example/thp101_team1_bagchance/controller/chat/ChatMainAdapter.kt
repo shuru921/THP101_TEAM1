@@ -1,6 +1,7 @@
 package com.example.thp101_team1_bagchance.controller.chat
 
 import android.Manifest
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.thp101_team1_bagchance.R
 import com.example.thp101_team1_bagchance.viewmodel.chat.SelectChat
 import com.example.thp101_team1_bagchance.databinding.ChatItemViewBinding
+import com.example.thp101_team1_bagchance.viewmodel.chat.ChatMainViewModel
 import com.example.thp101_team1_bagchance.viewmodel.chat.ChatRoomViewModel
 
 class ChatMainAdapter(var chats: List<SelectChat>) :
@@ -46,6 +48,14 @@ class ChatMainAdapter(var chats: List<SelectChat>) :
         val chat = chats[position]
         with(holder) {
             itemviewbinding.viewModel?.chatmaterial?.value = chat
+             var byteArray : ByteArray?
+             if (chat.inviteUid == ChatMainViewModel().user.id ) {
+                byteArray = chat?.beInvitedUidpic
+            }else{
+                byteArray = chat?.inviteUidpic
+            }
+            val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+            itemviewbinding.ivAvatarChat.setImageBitmap(bitmap)
 //          跳頁帶資料走所以寫bundle
             val bundle = Bundle()
             bundle.putSerializable("chatmaterial", chat)

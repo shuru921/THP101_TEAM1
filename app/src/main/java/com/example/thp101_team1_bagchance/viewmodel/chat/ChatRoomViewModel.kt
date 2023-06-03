@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory
 import android.media.MediaRecorder
 import android.net.Uri
 import android.provider.MediaStore
+import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.lifecycle.LiveData
@@ -19,25 +20,40 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import tw.idv.william.androidwebserver.core.service.requestTask
 import java.io.ByteArrayOutputStream
 import java.io.File
 
 class ChatRoomViewModel : ViewModel() {
     //    Adapter綁定的資料 把選定的聊天室資料傳入用
     val chatmaterial: MutableLiveData<SelectChat> by lazy { MutableLiveData<SelectChat>() }
+    //    設定聊天室大頭
+    val imageBitmap: MutableLiveData<Bitmap> = MutableLiveData()
     //    聊天輸入框
     val text: MutableLiveData<String> by lazy { MutableLiveData<String>() }
     //        受監控訊息列表 變化後回傳
     val messagelist: MutableLiveData<List<ChatMessageType>> by lazy { MutableLiveData<List<ChatMessageType>>() }
 //         假資料
     init {
-        val messageList = mutableListOf<ChatMessageType>()
-        messageList.add(ChatMessage(1,2,3,"aaa",null,null,"I",null).toChatMessageType(3))
-        messageList.add(ChatMessage(1,2,3,"aaa",null,null,"I",null).toChatMessageType(3))
-        messageList.add(ChatMessage(1,2,3,"aaa",null,null,"I",null).toChatMessageType(3))
-        messageList.add(ChatMessage(1,2,3,"aaa",null,null,"I",null).toChatMessageType(5))
-        messageList.add(ChatMessage(1,2,3,"aaa",null,null,"I",null).toChatMessageType(5))
+        byteArrayToView()
+        var messageList = mutableListOf<ChatMessageType>()
+//        messageList.add(ChatMessage(1,2,3,"aaa",null,null,"I",null).toChatMessageType(3))
+//        messageList.add(ChatMessage(1,2,3,"aaa",null,null,"I",null).toChatMessageType(3))
+//        messageList.add(ChatMessage(1,2,3,"aaa",null,null,"I",null).toChatMessageType(3))
+//        messageList.add(ChatMessage(1,2,3,"aaa",null,null,"I",null).toChatMessageType(5))
+//        messageList.add(ChatMessage(1,2,3,"aaa",null,null,"I",null).toChatMessageType(5))
+        messageList =  requestTask<>()
         messagelist.value = messageList
+    }
+    fun byteArrayToView () {
+        var byteArray : ByteArray?
+        if (chatmaterial.value?.inviteUid == ChatMainViewModel().user.id ) {
+            byteArray = chatmaterial.value?.beInvitedUidpic
+        }else{
+            byteArray = chatmaterial.value?.inviteUidpic
+        }
+        val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+        imageBitmap.value = bitmap
     }
 //         每10秒刷新資料以讓聊天室更新
     fun getNewMessage() {

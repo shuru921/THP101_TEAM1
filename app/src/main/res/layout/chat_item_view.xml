@@ -23,7 +23,7 @@
 <!--        tools:srcCompat="@tools:sample/avatars"-->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:background="@color/search269AA151">
 <!--大小會隨圖片變動得固定-->
             <LinearLayout
@@ -35,8 +35,7 @@
                     android:id="@+id/ivAvatar_Chat"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@{viewModel.chatmaterial.image}"/>
+                    android:layout_weight="5" />
 
                 <LinearLayout
                     android:layout_width="260dp"
@@ -47,15 +46,25 @@
                     <TextView
                         android:id="@+id/tvId_Chat"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
+                        android:gravity="center"
                         android:text="@{viewModel.chatmaterial.inviteUidname}"/>
 <!--57行 要判斷訊息是哪種-->
                     <TextView
                         android:id="@+id/tvLastMessage_Chat"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
+                        android:gravity="center"
                         android:text="@{viewModel.chatmaterial.message}"/>
                 </LinearLayout>
+                <ImageView
+                    android:id="@+id/ivUnread_Chat"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="bottom"
+                    android:src="@drawable/baseline_mark_chat_unread_24">
+
+                </ImageView>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </FrameLayout>
