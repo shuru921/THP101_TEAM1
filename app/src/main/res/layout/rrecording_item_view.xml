@@ -30,7 +30,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:srcCompat="@drawable/ic_stop" />
-
+        <!--這裡文字時間要寫辦法隨錄音時間變動-->
         <TextView
             android:id="@+id/tvTime2_Chat"
             android:layout_width="wrap_content"

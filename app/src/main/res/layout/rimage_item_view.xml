@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools">
-
+<!--寫死的記得要修改-->
+<!--    android:src="@drawable/ic_enter"
+        tools:srcCompat="@drawable/ic_enter" 刪掉了怕錯先留著-->
     <ImageView
         android:id="@+id/ivPicture_Chat"
         android:layout_width="wrap_content"
@@ -12,11 +14,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_weight="1"
-        android:src="@drawable/ic_enter"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/ic_enter" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

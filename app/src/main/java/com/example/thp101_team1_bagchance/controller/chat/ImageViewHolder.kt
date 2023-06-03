@@ -1,13 +1,14 @@
 package com.example.thp101_team1_bagchance.controller.chat
 
-import android.view.View
-import com.example.thp101_team1_bagchance.Message
+import android.graphics.BitmapFactory
+import com.example.thp101_team1_bagchance.viewmodel.chat.ChatMessageType
 import com.example.thp101_team1_bagchance.databinding.LimageItemViewBinding
-import com.example.thp101_team1_bagchance.databinding.RoomItemViewBinding
 
-class ImageViewHolder(private val binding: LimageItemViewBinding) : MessageViewHolder<Message.Limage>(binding.root) {
+class ImageViewHolder(private val binding: LimageItemViewBinding) : MessageViewHolder<ChatMessageType.Limage>(binding.root) {
 
-    override fun onBind(item: Message.Limage) {
-        TODO("onBindViewHolder的寫進來")
+    override fun onBind(item: ChatMessageType.Limage) {
+        val byteArray = item.image
+        val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+        binding.ivPictureChat.setImageBitmap(bitmap)
     }
 }

@@ -39,8 +39,8 @@ class ChatMainFragment : Fragment() {
         with(binding) {
 //            設定recyclerview佈局為垂直
             rvRoomChat.layoutManager = LinearLayoutManager(requireContext())
-//            監聽好友列表
-            viewModel?.friendlist?.observe(viewLifecycleOwner) {
+//            監聽聊天室列表
+            viewModel?.chatlist?.observe(viewLifecycleOwner) {
 //              沒建立過就建立(第一次)
                 if (rvRoomChat.adapter == null) {
                     rvRoomChat.adapter = ChatMainAdapter(it)

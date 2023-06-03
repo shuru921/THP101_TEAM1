@@ -1,14 +1,11 @@
 package com.example.thp101_team1_bagchance.controller.chat
 
-import android.view.View
-import com.example.thp101_team1_bagchance.Message
+import com.example.thp101_team1_bagchance.viewmodel.chat.ChatMessageType
 import com.example.thp101_team1_bagchance.databinding.LrecordingItemViewBinding
-import com.example.thp101_team1_bagchance.databinding.LtextItemViewBinding
-import com.example.thp101_team1_bagchance.databinding.RoomItemViewBinding
 
-class RecordingViewHolder(private val binding: LrecordingItemViewBinding) : MessageViewHolder<Message.LRecording>(binding.root) {
+class RecordingViewHolder(private val binding: LrecordingItemViewBinding) : MessageViewHolder<ChatMessageType.LRecording>(binding.root) {
 
-    override fun onBind(item: Message.LRecording) {
+    override fun onBind(item: ChatMessageType.LRecording) {
         TODO("onBindViewHolder的寫進來")
     }
 }

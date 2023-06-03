@@ -9,7 +9,6 @@
             type="com.example.thp101_team1_bagchance.viewmodel.chat.ChatRoomViewModel" />
     </data>
 <!--這邊我沒context往上宜先做個標記-->
-<!--把整個itemview設為點擊事件 clickable onclick 在寫方法-->
     <FrameLayout
         android:id="@+id/itemLayout"
         android:layout_width="match_parent"
@@ -20,42 +19,42 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp">
 
-
+<!--        android:src="@drawable/ic_enter"-->
+<!--        tools:srcCompat="@tools:sample/avatars"-->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/search269AA151">
-
+<!--大小會隨圖片變動得固定-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
-
+<!--39得修改-->
                 <ImageView
                     android:id="@+id/ivAvatar_Chat"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_enter"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:src="@{viewModel.chatmaterial.image}"/>
 
                 <LinearLayout
                     android:layout_width="260dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical">
-<!--沒資料抓不了名字和最後訊息-->
+<!--51得修改-->
                     <TextView
                         android:id="@+id/tvId_Chat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.friend.name}"/>
-
+                        android:text="@{viewModel.chatmaterial.inviteUidname}"/>
+<!--57行 要判斷訊息是哪種-->
                     <TextView
                         android:id="@+id/tvLastMessage_Chat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="我先寫死"/>
+                        android:text="@{viewModel.chatmaterial.message}"/>
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

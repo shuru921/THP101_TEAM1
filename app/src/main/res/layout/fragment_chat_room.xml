@@ -31,20 +31,23 @@
                 android:background="@color/search269AA151"
                 android:orientation="horizontal">
 
+<!--                android:src="@drawable/ic_enter"-->
+<!--                tools:src="@tools:sample/avatars"-->
+                <!--43得修改-->
+<!--                圖片得想辦法固定大小-->
                 <ImageView
                     android:id="@+id/ivRoomAvatar_Chat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:src="@drawable/ic_enter"
-                    tools:src="@tools:sample/avatars" />
-
+                    android:src="@{viewModel.chatmaterial.image}"/>
+                <!--50得修改-->
                 <TextView
                     android:id="@+id/tvName_Chat"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@{viewModel.friend.name}" />
+                    android:text="@{viewModel.chatmaterial.inviteUidname}" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
