@@ -28,11 +28,11 @@ class ExploreMainViewModel : ViewModel() {
             viewModelScope.launch {
                 val url = "http://10.0.2.2:8080/THP101G2-WebServer-School/explore"
                 val type = object : TypeToken<List<ExploreMainStory>>() {}.type
-
-                val list: List<ExploreMainStory>? = requestTask(url, respBodyType = type)
-                mainstoryList.clear()
-                list?.let { list1 ->
-                    mainstoryList.addAll(list1)
+//                  fixme 要連後端加回去
+//                val list: List<ExploreMainStory>? = requestTask(url, respBodyType = type)
+//                mainstoryList.clear()
+//                list?.let { list1 ->
+//                    mainstoryList.addAll(list1)
                     mainstorys.value = mainstoryList
                 }
             }
@@ -87,4 +87,4 @@ class ExploreMainViewModel : ViewModel() {
 //        this.storyList = storyList
 //        this.storys.value = this.storyList
 //    }
-}
+//}

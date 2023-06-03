@@ -27,14 +27,15 @@ class ExploreMainStoryViewModel : ViewModel() {
         val mainstoryList = mutableListOf<ExploreMainStory>()
         val url = "http://10.0.2.2:8080/THP101G2-WebServer-School/explore"
         val type = object : TypeToken<List<ExploreMainStory>>(){}.type
-        val list = requestTask<List<ExploreMainStory>>(url, respBodyType = type)
+//        fixme 要連後端在加回去
+//        val list = requestTask<List<ExploreMainStory>>(url, respBodyType = type)
 //        val byteArray = list!![0].profile_pic
 //        println(Arrays.toString(byteArray))
 
         mainstoryList.clear()
-        list?.let { list1 ->
-            mainstoryList.addAll(list1)
+//        list?.let { list1 ->
+//            mainstoryList.addAll(list1)
             mainstorys.value = mainstoryList
         }
         }
-}
+//}
