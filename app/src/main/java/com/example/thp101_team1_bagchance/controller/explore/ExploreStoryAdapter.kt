@@ -44,16 +44,16 @@ class ExploreStoryAdapter(private var storys: List<ExploreStory>) :
     }
 
     override fun onBindViewHolder(holder: ExploreStoryViewHolder, position: Int) {
-        val story = storys[position]
-        with(holder) {
-            // 將欲顯示的friend物件指派給LiveData，就會自動更新layout檔案的view顯示
-            itemViewBinding.viewModel?.story?.value = story
-            val bundle = Bundle()
-            bundle.putSerializable("story", story)
-            itemView.setOnClickListener {
-                Navigation.findNavController(it)
-                    .navigate(R.id.action_exploreMainFragment_to_exploreStoryFragment,bundle)
-            }
-        }
+//        val story = storys[position]
+//        with(holder) {
+//            // 將欲顯示的friend物件指派給LiveData，就會自動更新layout檔案的view顯示
+//            itemViewBinding.viewModel?.story?.value = story
+//            val bundle = Bundle()
+//            bundle.putSerializable("story", story)
+//            itemView.setOnClickListener {
+//                Navigation.findNavController(it)
+//                    .navigate(R.id.action_exploreMainFragment_to_exploreStoryFragment,bundle)
+//            }
+//        }
     }
 }
