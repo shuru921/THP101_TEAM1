@@ -46,4 +46,10 @@
     <string name="txtcamera">相機</string>
     <string name="txtalbum">相簿</string>
     <string name="txtrecording">請授權錄音</string>
+    <string name="txtyes">前往</string>
+    <string name="txtno">拒絕</string>
+    <string name="txtCancel">取消</string>
+    <string name="txtauthorized">請求授權</string>
+    <string name="txtrequestauthorization">我們需要您的授權才能錄音</string>
+
 </resources>

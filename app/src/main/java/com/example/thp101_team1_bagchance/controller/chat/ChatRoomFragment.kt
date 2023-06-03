@@ -2,13 +2,17 @@ package com.example.thp101_team1_bagchance.controller.chat
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.MediaRecorder
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -18,6 +22,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.thp101_team1_bagchance.viewmodel.chat.ChatMessageType
@@ -26,12 +31,13 @@ import com.example.thp101_team1_bagchance.viewmodel.chat.SelectChat
 import com.example.thp101_team1_bagchance.databinding.FragmentChatRoomBinding
 import com.example.thp101_team1_bagchance.viewmodel.chat.ChatRoomViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.yalantis.ucrop.UCrop
 import kotlinx.coroutines.*
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.util.*
 
-
+var count: Int = 0
 class ChatRoomFragment : Fragment(),  View.OnTouchListener {
     private lateinit var binding: FragmentChatRoomBinding
 //    存錄音檔位置名稱
@@ -44,6 +50,8 @@ class ChatRoomFragment : Fragment(),  View.OnTouchListener {
     private var durationInSeconds = 0
     private var job: Job? = null
     private lateinit var camerafile: File
+    private lateinit var contentUri: Uri
+
 
 
     override fun onCreateView(
@@ -98,7 +106,7 @@ class ChatRoomFragment : Fragment(),  View.OnTouchListener {
                     val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                     camerafile = File(requireContext().getExternalFilesDir(null), "picture.jpg")
                     // Android 7開始，指定拍照存檔路徑要改使用FileProvider
-                    val contentUri = FileProvider.getUriForFile(
+                    contentUri = FileProvider.getUriForFile(
                         requireContext(), requireContext().packageName, camerafile
                     )
                     // 拍照前指定存檔路徑就可取得原圖而非縮圖
@@ -108,19 +116,24 @@ class ChatRoomFragment : Fragment(),  View.OnTouchListener {
                 }
 
                 included2.tvalbumChat.setOnClickListener {
-                    // fixme: 相簿選相片
+                    val intent = Intent(
+                        Intent.ACTION_PICK,
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                    )
+                    pickPictureLauncher.launch(intent)
                 }
             }
             ivRecordingChat.setOnClickListener {
+                if (recordGranted == false) return@setOnClickListener
                 val bottomSheetBehavior = BottomSheetBehavior.from(included.bottomSheet)
                 if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_EXPANDED) {
                     bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
                 }
+                requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
 //                設定長點擊錄音 放開就結束錄音
                  included.ivRecordChat.setOnTouchListener(this@ChatRoomFragment)
             }
             ivSendChat.setOnClickListener {
-
                 val viewModel = binding?.viewModel
                 if (viewModel is ChatRoomViewModel) {
                     val test = viewModel.messagelist.value?.toMutableList() ?: mutableListOf()
@@ -136,23 +149,56 @@ class ChatRoomFragment : Fragment(),  View.OnTouchListener {
             }
         }
 //    fixme    binding.viewModel?.getNewMessage() 10秒刷新先註解
+//    fixme    一樣調用方法 但記得去掉線程 想辦法抓FIREBASE推播 一推播就更新資料
     }
 
     override fun onStart() {
         super.onStart()
 //        啟動requestPermissionLauncher 向使用者申請權限
         requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
-    }
+        if(recordGranted == false) {
+            requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
+            count++
+            println(count)
+            if (count>=3) {
+                AlertDialog.Builder(view?.context)
+                    // 設定標題文字
+                    .setTitle(R.string.txtauthorized)
+                    // 設定訊息文字
+                    .setMessage(R.string.txtrequestauthorization)
+                    // 設定positive, negative, neutral按鈕上面的文字與點擊事件監聽器
+                    .setPositiveButton(R.string.txtyes, onClickListener)
+                    .setNegativeButton(R.string.txtno, onClickListener)
+                    .setNeutralButton(R.string.txtCancel, onClickListener)
+                    // false代表要點擊按鈕方能關閉，預設為true
+                    .setCancelable(true)
+                    .show()
+                count = 0
+                }
+            }
+        }
 
     private var requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
             recordGranted = if (result) true
             else {
                 Toast.makeText(requireContext(),R.string.txtrecording, Toast.LENGTH_SHORT).show()
-//                fixme 處理沒授權後再次進入只會跳吐司
                 false
             }
         }
+
+    val onClickListener = DialogInterface.OnClickListener { dialog, which ->
+        val text = when (which) {
+            AlertDialog.BUTTON_POSITIVE -> {
+                getString(R.string.txtyes)
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                startActivity(intent)
+            }AlertDialog.BUTTON_NEGATIVE -> getString(R.string.txtno)
+            AlertDialog.BUTTON_NEUTRAL -> getString(R.string.txtCancel)
+            else -> ""
+        }
+        dialog.cancel()
+    }
 //          設定長按及放開
 override fun onTouch(v: View?, event: MotionEvent?): Boolean {
     when (v?.id) {
@@ -174,7 +220,6 @@ override fun onTouch(v: View?, event: MotionEvent?): Boolean {
 }
 //          開始錄音
     private fun startRecording() {
-
         // 开始录音
         val dir = requireContext().getExternalFilesDir(null)
         file = File(dir, fileName)
@@ -211,7 +256,7 @@ override fun onTouch(v: View?, event: MotionEvent?): Boolean {
             mediaRecorder?.reset()
         } catch (e: IllegalStateException) {
             e.printStackTrace()
-            // TODO: 处理 IllegalStateException 异常
+            // fixme: 处理 IllegalStateException 异常
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -259,6 +304,7 @@ override fun onTouch(v: View?, event: MotionEvent?): Boolean {
     private var takePictureLargeLauncher =
         registerForActivityResult(ActivityResultContracts.TakePicture()) { result ->
             if (result != null) {
+                crop(contentUri)
                 val list = binding.viewModel?.messagelist?.value ?: listOf()
                 val mutableList = list.toMutableList()
 
@@ -274,5 +320,39 @@ override fun onTouch(v: View?, event: MotionEvent?): Boolean {
                 binding.viewModel?.messagelist?.value = mutableList
             }
         }
+
+    private var pickPictureLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                result.data?.data?.let {
+                    crop(it)
+                    val list = binding.viewModel?.messagelist?.value ?: listOf()
+                    val mutableList = list.toMutableList()
+
+                    val options = BitmapFactory.Options()
+                    options.inSampleSize = 3
+
+                    val inputStream = requireActivity().contentResolver.openInputStream(it)
+                    val bitmap = BitmapFactory.decodeStream(inputStream, null, options)
+                    inputStream?.close()
+                    val byteArrayOutputStream = ByteArrayOutputStream()
+                    bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+                    val byteArray = byteArrayOutputStream.toByteArray()
+//                    fixme uid要判斷
+                    mutableList.add(ChatMessageType.Rimage(image = byteArray))
+                    binding.viewModel?.messagelist?.value = mutableList
+                }
+            }
+        }
+//        裁切
+    private fun crop(sourceImageUri: Uri) {
+        val file = File(requireContext().getExternalFilesDir(null), "picture_cropped.jpg")
+        val destinationUri = Uri.fromFile(file)
+        val cropIntent: Intent = UCrop.of(
+            sourceImageUri,
+            destinationUri
+        )
+            .getIntent(requireContext())
+    }
 }
 
