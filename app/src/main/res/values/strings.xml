@@ -52,4 +52,11 @@
     <string name="txtauthorized">請求授權</string>
     <string name="txtrequestauthorization">我們需要您的授權才能錄音</string>
 
+
+    <string name="txtMyLocation_Post">我的位置</string>
+    <string name="txtWait_Post">稍等一下...</string>
+    <string name="txterrLocationNotFound_Post">無法取得目前位置</string>
+    <string name="txterrLocationAccessNotGrant_Post">尚未同意取得目前位置</string>
+
+
 </resources>
