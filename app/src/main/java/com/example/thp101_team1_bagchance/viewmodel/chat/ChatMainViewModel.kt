@@ -20,9 +20,9 @@ class ChatMainViewModel : ViewModel() {
 //        chats.add((SelectChat(1,1,2,"A", Timestamp(System.currentTimeMillis()),Timestamp(System.currentTimeMillis()),"aaa","bbb",null,null,"123",null,null)))
 //        chats.add((SelectChat(1,1,3,"A", Timestamp(System.currentTimeMillis()),Timestamp(System.currentTimeMillis()),"aaa","ccc",null,null, "456",null,null)))
 //        chats.add((SelectChat(1,1,4,"A", Timestamp(System.currentTimeMillis()),Timestamp(System.currentTimeMillis()),"aaa","ddd",null,null,"789",null,null)))
-        val type = object : TypeToken<List<SelectChat>>(){}.type
-        user =  requestTask<LoginUser>("http://10.0.2.2:8080/test/*****", respBodyType = LoginUser::class.java)
-        chats =  requestTask<List<SelectChat>>("http://10.0.2.2:8080/test/findAll/${LoginUser.id}", respBodyType = type)!!.toMutableList()
+        val type = object : TypeToken<MutableList<SelectChat>>(){}.type
+        user =  requestTask<LoginUser>("http://10.0.2.2:8080/test/web/ChatController/"+"aaa", respBodyType = LoginUser::class.java, method = "OPTIONS")
+        chats =  requestTask<MutableList<SelectChat>>("http://10.0.2.2:8080/test//web/ChatController/${user?.id}", respBodyType = type)!!.toMutableList()
         this.chatlist.value = chats
     }
 

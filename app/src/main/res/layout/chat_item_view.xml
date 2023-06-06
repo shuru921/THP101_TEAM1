@@ -47,15 +47,13 @@
                         android:id="@+id/tvId_Chat"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:gravity="center"
-                        android:text="@{viewModel.chatmaterial.inviteUidname}"/>
+                        android:gravity="center" />
 <!--57行 要判斷訊息是哪種-->
                     <TextView
                         android:id="@+id/tvLastMessage_Chat"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:gravity="center"
-                        android:text="@{viewModel.chatmaterial.message}"/>
+                        android:gravity="center" />
                 </LinearLayout>
                 <ImageView
                     android:id="@+id/ivUnread_Chat"

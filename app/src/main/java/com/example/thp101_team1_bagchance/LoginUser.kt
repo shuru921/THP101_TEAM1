@@ -1,6 +1,7 @@
 package com.example.thp101_team1_bagchance
 
 data class LoginUser(
+    var id:Int?,
     var email:String?,
     var phone:String?,
     var password:String?,
