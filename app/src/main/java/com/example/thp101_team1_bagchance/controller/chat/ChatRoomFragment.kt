@@ -29,6 +29,7 @@ import com.example.thp101_team1_bagchance.viewmodel.chat.ChatMessageType
 import com.example.thp101_team1_bagchance.R
 import com.example.thp101_team1_bagchance.viewmodel.chat.SelectChat
 import com.example.thp101_team1_bagchance.databinding.FragmentChatRoomBinding
+import com.example.thp101_team1_bagchance.viewmodel.chat.ChatMainViewModel
 import com.example.thp101_team1_bagchance.viewmodel.chat.ChatRoomViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.yalantis.ucrop.UCrop
@@ -67,11 +68,37 @@ class ChatRoomFragment : Fragment(),  View.OnTouchListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         arguments?.let {
             it.getSerializable("chatmaterial")?.let {
 
 //              帶入暱稱 頭貼
                 binding.viewModel?.chatmaterial?.value = it as SelectChat
+
+                if (binding.viewModel?.chatmaterial?.value?.inviteUid == binding.viewModel?.user?.id) {
+                    binding.tvNameChat.text =  binding.viewModel?.chatmaterial?.value?.beInvitedUidname
+                } else {
+                    binding.tvNameChat.text =  binding.viewModel?.chatmaterial?.value?.inviteUidname
+                }
+
+                val byteArray : ByteArray?
+                val options = BitmapFactory.Options()
+                options.inSampleSize = 3 // 将inSampleSize设置为3，表示将图像尺寸缩小为原来的1/3
+                if (binding.viewModel?.chatmaterial?.value?.inviteUid == binding.viewModel?.user?.id) {
+                    binding.viewModel?.chatmaterial?.value?.beInvitedUidpic?.let {
+                        byteArray = binding.viewModel?.chatmaterial?.value?.beInvitedUidpic
+                        val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray!!.size, options)
+                        binding.ivRoomAvatarChat.setImageBitmap(bitmap)
+                    }
+                } else {
+                    binding.viewModel?.chatmaterial?.value?.inviteUidpic?.let {
+                        byteArray = binding.viewModel?.chatmaterial?.value?.inviteUidpic
+                        val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray!!.size, options)
+                        binding.ivRoomAvatarChat.setImageBitmap(bitmap)
+                    }
+                }
+
             }
         }
 
@@ -131,36 +158,24 @@ class ChatRoomFragment : Fragment(),  View.OnTouchListener {
                 }
                 requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
 //                設定長點擊錄音 放開就結束錄音
-                 included.ivRecordChat.setOnTouchListener(this@ChatRoomFragment)
+                included.ivRecordChat.setOnTouchListener(this@ChatRoomFragment)
             }
-            ivSendChat.setOnClickListener {
-                val viewModel = binding?.viewModel
-                if (viewModel is ChatRoomViewModel) {
-                    val test = viewModel.messagelist.value?.toMutableList() ?: mutableListOf()
-                    if (binding?.viewModel?.text?.value == null || binding?.viewModel?.text?.value == "") {
-                        return@setOnClickListener
-                    }else {
-                        test.add(ChatMessageType.Rtext(text = binding?.viewModel?.text?.value.toString()))
-                        viewModel.messagelist.value = test
-                    }
-                }
-                binding?.viewModel?.text?.value = ""
-                // fixme: 要把資料傳給資料庫 並且傳入對話框內
-            }
-        }
-//    fixme    binding.viewModel?.getNewMessage() 10秒刷新先註解
 //    fixme    一樣調用方法 但記得去掉線程 想辦法抓FIREBASE推播 一推播就更新資料
-    }
+        binding.viewModel?.getNewMessage()
 
+        }
+
+
+    }
     override fun onStart() {
         super.onStart()
 //        啟動requestPermissionLauncher 向使用者申請權限
         requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
-        if(recordGranted == false) {
+        if (recordGranted == false) {
             requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
             count++
             println(count)
-            if (count>=3) {
+            if (count >= 3) {
                 AlertDialog.Builder(view?.context)
                     // 設定標題文字
                     .setTitle(R.string.txtauthorized)
@@ -174,10 +189,9 @@ class ChatRoomFragment : Fragment(),  View.OnTouchListener {
                     .setCancelable(true)
                     .show()
                 count = 0
-                }
             }
         }
-
+    }
     private var requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
             recordGranted = if (result) true
@@ -199,6 +213,7 @@ class ChatRoomFragment : Fragment(),  View.OnTouchListener {
         }
         dialog.cancel()
     }
+
 //          設定長按及放開
 override fun onTouch(v: View?, event: MotionEvent?): Boolean {
     when (v?.id) {
@@ -256,7 +271,6 @@ override fun onTouch(v: View?, event: MotionEvent?): Boolean {
             mediaRecorder?.reset()
         } catch (e: IllegalStateException) {
             e.printStackTrace()
-            // fixme: 处理 IllegalStateException 异常
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -355,4 +369,6 @@ override fun onTouch(v: View?, event: MotionEvent?): Boolean {
             .getIntent(requireContext())
     }
 }
+
+
 

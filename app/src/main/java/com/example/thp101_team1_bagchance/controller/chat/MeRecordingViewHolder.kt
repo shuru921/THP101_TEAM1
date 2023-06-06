@@ -6,6 +6,6 @@ import com.example.thp101_team1_bagchance.databinding.RrecordingItemViewBinding
 class MeRecordingViewHolder(private val binding: RrecordingItemViewBinding) : MessageViewHolder<ChatMessageType.RRecording>(binding.root) {
 
     override fun onBind(item: ChatMessageType.RRecording) {
-        TODO("onBindViewHolder的寫進來")
+//          fixme 寫讀入錄音
     }
 }

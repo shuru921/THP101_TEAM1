@@ -1,15 +1,21 @@
 package com.example.thp101_team1_bagchance.controller.chat
 
 import android.Manifest
+import android.graphics.BitmapFactory
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.thp101_team1_bagchance.R
 import com.example.thp101_team1_bagchance.viewmodel.chat.SelectChat
 import com.example.thp101_team1_bagchance.databinding.ChatItemViewBinding
+import com.example.thp101_team1_bagchance.viewmodel.chat.ChatMainViewModel
 import com.example.thp101_team1_bagchance.viewmodel.chat.ChatRoomViewModel
 
 class ChatMainAdapter(var chats: List<SelectChat>) :
@@ -46,14 +52,39 @@ class ChatMainAdapter(var chats: List<SelectChat>) :
         val chat = chats[position]
         with(holder) {
             itemviewbinding.viewModel?.chatmaterial?.value = chat
-//          跳頁帶資料走所以寫bundle
-            val bundle = Bundle()
-            bundle.putSerializable("chatmaterial", chat)
-            itemView.setOnClickListener {
-                Navigation.findNavController(it)
-                    .navigate(R.id.action_chatMainFragment_to_chatRoomFragment, bundle)
-
+            var byteArray: ByteArray?
+            if (chat.inviteUid == itemviewbinding.viewModel?.user?.id) {
+                byteArray = chat.beInvitedUidpic
+            } else {
+                byteArray = chat.inviteUidpic
             }
+            if (byteArray != null && byteArray.isNotEmpty()) {
+                val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+                itemviewbinding.ivAvatarChat.setImageBitmap(bitmap)
+            }
+
+            itemviewbinding.tvIdChat.text = if (chat.inviteUid == itemviewbinding.viewModel?.user?.id) {
+                chat.beInvitedUidname
+            } else {
+                chat.inviteUidname
+            }
+
+            itemviewbinding.tvLastMessageChat.text = if (chat.message != null && chat.message.isNotEmpty()) {
+                "${chat.message}"
+            } else if (chat.picture != null && chat.picture.size != 0) {
+                "${itemviewbinding.tvIdChat.text}${itemviewbinding.root.context.getString(R.string.txtsendpic)}"
+            } else {
+                "${itemviewbinding.tvIdChat.text}${itemviewbinding.root.context.getString(R.string.txtsendrecording)}"
+            }
+//            fixme 已讀未讀標示 上面資料為null要處理
+
+            val bundle = Bundle()
+            bundle.putSerializable("chatmaterial",chat)
+            itemView.setOnClickListener {
+                findNavController(it).navigate(R.id.action_chatMainFragment_to_chatRoomFragment,bundle)
+            }
+
         }
     }
+
 }

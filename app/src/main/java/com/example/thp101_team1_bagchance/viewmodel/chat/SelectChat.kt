@@ -11,12 +11,12 @@ data class SelectChat (val id: Int,
                        val lastUpdateDate: Timestamp,
                        val inviteUidname: String,
                        val beInvitedUidname: String,
-                       val inviteUidpic: ByteArray?,
-                       val beInvitedUidpic: ByteArray?,
-                       val message : String?,
-                       val picture : ByteArray?,
-                       val recordingpath : String?,
-                       val image :Int = R.drawable.ic_camera
+                       val inviteUidpic: ByteArray? = null,
+                       val beInvitedUidpic: ByteArray? = null,
+                       val message : String? = null,
+                       val picture : ByteArray? = null,
+                       val recordingpath : String? = null,
+                       val senduid : Int
 ) : java.io.Serializable
 // fixme: val image :Int = R.drawable.ic_camera 是假資料串後端得刪除
 // fixme: pic如果是null看要不要給預設值(沒頭貼給個醜醜的預設)

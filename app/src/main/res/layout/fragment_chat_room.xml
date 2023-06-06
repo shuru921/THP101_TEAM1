@@ -39,15 +39,13 @@
                     android:id="@+id/ivRoomAvatar_Chat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:src="@{viewModel.chatmaterial.image}"/>
+                    android:layout_weight="3" />
                 <!--50得修改-->
                 <TextView
                     android:id="@+id/tvName_Chat"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@{viewModel.chatmaterial.inviteUidname}" />
+                    android:layout_weight="1"/>
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
