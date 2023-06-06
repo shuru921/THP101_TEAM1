@@ -32,6 +32,7 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 
 class ChatRoomViewModel : ViewModel() {
+//    hiiiiiiiiiiiiiiiiii
     //    假登入帳號
     var user : LoginUser? = null
     //    完整聊天室列表 若判斷資料沒變化即回傳
