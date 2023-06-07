@@ -16,22 +16,7 @@ class ExploreStoryViewModel : ViewModel() {
         loadComments()
     }
     private fun loadComments() {
-        val commentList = mutableListOf<ExploreComment>()
-        commentList.add(ExploreComment(
-            R.drawable.ic_vip, "Ivy","容哥好帥"
-        ))
-        commentList.add(ExploreComment(
-            R.drawable.ic_vip, "Ivy","容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師容哥好師"
-        ))
-        commentList.add(ExploreComment(
-            R.drawable.ic_vip, "Ivy","容哥太帥"
-        ))
-        commentList.add(ExploreComment(
-            R.drawable.ic_vip, "Ivy","容哥太師"
-        ))
-        commentList.add(ExploreComment(
-            R.drawable.ic_vip, "Ivy","容哥好帥"
-        ))
+
         this.commentList = commentList
         this.commemts.value = this.commentList
     }

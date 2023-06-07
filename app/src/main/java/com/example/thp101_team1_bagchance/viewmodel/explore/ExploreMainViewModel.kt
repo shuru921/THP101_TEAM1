@@ -4,10 +4,18 @@ package com.example.thp101_team1_bagchance.viewmodel.explore
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+<<<<<<< HEAD
 
 import com.google.gson.reflect.TypeToken
 
 
+=======
+import com.example.thp101_team1_bagchance.R
+import com.example.thp101_team1_bagchance.controller.explore.ExploreMainStoryAdapter
+import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.reflect.TypeToken
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+>>>>>>> explore_Yo
 import kotlinx.coroutines.launch
 
 
@@ -15,10 +23,15 @@ class ExploreMainViewModel : ViewModel() {
     val mainstorys: MutableLiveData<List<ExploreMainStory>> by lazy { MutableLiveData<List<ExploreMainStory>>() }
     private var mainstoryList = mutableListOf<ExploreMainStory>()
 
+
+
     init {
 
         loadmainStorys()
     }
+
+
+
 
     private fun loadmainStorys() {
             viewModelScope.launch {
@@ -30,21 +43,15 @@ class ExploreMainViewModel : ViewModel() {
 //                list?.let { list1 ->
 //                    mainstoryList.addAll(list1)
                     mainstorys.value = mainstoryList
+
+
                 }
             }
     }
 
-    // 原始好友列表
-    private var storyList = mutableListOf<ExploreStory>()
-
-    // 受監控的LiveData，一旦指派新值就會更新好友列表畫面
-    val storys: MutableLiveData<List<ExploreStory>> by lazy { MutableLiveData<List<ExploreStory>>() }
-
-//    init {
-//        loadStorys()
-//    }
 
 
+<<<<<<< HEAD
     /** 模擬取得遠端資料 */
 //    private fun loadStorys() {
 //        val storyList = mutableListOf<ExploreStory>()
@@ -84,3 +91,6 @@ class ExploreMainViewModel : ViewModel() {
 //        this.storys.value = this.storyList
 //    }
 //}
+=======
+}
+>>>>>>> explore_Yo
