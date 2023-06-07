@@ -29,12 +29,12 @@ data class Explore(
     private val comment: String
 )
 
-//fun main() {
-//    val url = "http://localhost:8080/THP101G2-WebServer-School/explore"
-//    val type = object : TypeToken<List<Explore>>(){}.type
-//    val list = requestTask<List<Explore>>(url, respBodyType = type)
-//    println(list)
-//}
+fun main() {
+    val url = "http://localhost:8080/THP101G2-WebServer-School/explore"
+    val type = object : TypeToken<List<Explore>>(){}.type
+    val list = requestTask<List<Explore>>(url, respBodyType = type)
+    println(list)
+}
 
 inline fun <reified T> requestTask(
     url: String,
