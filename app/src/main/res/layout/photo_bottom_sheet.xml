@@ -12,7 +12,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="100dp">
+        android:layout_marginBottom="50dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/photobottomSheet"
@@ -29,6 +29,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="@string/txtcamera"
+                android:gravity="center"
+                android:textSize="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -40,6 +42,8 @@
                 android:layout_height="60dp"
                 android:layout_marginTop="60dp"
                 android:text="@string/txtalbum"
+                android:gravity="center"
+                android:textSize="24dp"
                 app:layout_constraintEnd_toEndOf="@id/tvcamera_Chat"
                 app:layout_constraintHorizontal_bias="0.453"
                 app:layout_constraintStart_toStartOf="@id/tvcamera_Chat"

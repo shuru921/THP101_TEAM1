@@ -16,7 +16,7 @@ class ImageViewHolder(private val binding: LimageItemViewBinding) : MessageViewH
         options.inSampleSize = 3 // 将inSampleSize设置为3，表示将图像尺寸缩小为原来的1/3
         val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size, options)
         binding.ivPictureChat.setImageBitmap(bitmap)
-        // FIXME: 要寫輸出照片
+
 //        val byteArray = item.image
 //        val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
 //        binding.ivPictureChat.setImageBitmap(bitmap)

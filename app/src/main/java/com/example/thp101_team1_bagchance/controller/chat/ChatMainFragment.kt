@@ -3,6 +3,7 @@ package com.example.thp101_team1_bagchance.controller.chat
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -42,6 +43,7 @@ class ChatMainFragment : Fragment() {
 //            監聽聊天室列表
             viewModel?.chatlist?.observe(viewLifecycleOwner) {
 //              沒建立過就建立(第一次)
+//                Log.d("myTag__ ${javaClass::getSimpleName}","${it}")
                 if (rvRoomChat.adapter == null) {
                     rvRoomChat.adapter = ChatMainAdapter(it)
                 }else {

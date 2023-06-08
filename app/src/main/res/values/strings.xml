@@ -52,6 +52,8 @@
     <string name="txtauthorized">請求授權</string>
     <string name="txtrequestauthorization">我們需要您的授權才能錄音</string>
     <string name="txtsendpic">對您傳送了圖片</string>
+    <string name="txtmesendpic">您傳送了圖片</string>
     <string name="txtsendrecording">對您傳送了錄音</string>
+    <string name="txtmesendrecording">您傳送了錄音</string>
 
 </resources>

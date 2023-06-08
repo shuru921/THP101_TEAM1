@@ -16,7 +16,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.thp101_team1_bagchance.LoginUser
 import com.example.thp101_team1_bagchance.R
 import com.example.thp101_team1_bagchance.controller.chat.ChatRoomFragment
 import com.example.thp101_team1_bagchance.databinding.ChatItemViewBinding
@@ -32,8 +31,9 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 
 class ChatRoomViewModel : ViewModel() {
+
     //    假登入帳號
-    var user : LoginUser? = null
+    var user: User? = null
     //    完整聊天室列表 若判斷資料沒變化即回傳
     val chats : MutableList<SelectChat>
     //    受監控聊天室列表 變化後回傳
@@ -46,8 +46,10 @@ class ChatRoomViewModel : ViewModel() {
     val messagelist: MutableLiveData<List<ChatMessageType>> by lazy { MutableLiveData<List<ChatMessageType>>() }
     init {
         val type = object : TypeToken<MutableList<SelectChat>>(){}.type
-        user =  requestTask<LoginUser>("http://10.0.2.2:8080/test/web/ChatController/"+"aaa", respBodyType = LoginUser::class.java, method = "OPTIONS")
+        user =  requestTask<User>("http://10.0.2.2:8080/test/web/ChatController/"+"aaa", respBodyType = User::class.java, method = "OPTIONS")
+//        Log.d("myTag${javaClass::getSimpleName}","user => ${user}")
         chats =  requestTask<MutableList<SelectChat>>("http://10.0.2.2:8080/test//web/ChatController/${user?.id}", respBodyType = type)!!.toMutableList()
+//        Log.d("myTag${javaClass::getSimpleName}","chat => ${chats}")
         this.chatlist.value = chats
     }
 
@@ -59,17 +61,19 @@ class ChatRoomViewModel : ViewModel() {
 //                fixme 改用firebase推播去抓聊天室變化 一變化就連資料庫更新 線程不用輪巡可以不用開
                 val type = object : TypeToken<List<ChatMessage>>(){}.type
                 val chatMessage = requestTask<List<ChatMessage>>("http://10.0.2.2:8080/test/web/ChatMessageController/"+"${chatmaterial!!.value?.id}", respBodyType = type)
-                val oldMessageList = (messagelist.value ?: listOf<ChatMessageType>()).toMutableList()
+                val oldMessageList = mutableListOf<ChatMessageType>()
+//                val oldMessageList = (messagelist.value ?: listOf<ChatMessageType>()).toMutableList()
                 if (chatMessage != null) {
                     for (i in chatMessage) {
                         oldMessageList.add(i.toChatMessageType(user!!.id!!))
                     }
                 }
+                Log.d("TAG_${javaClass.simpleName}", "oldMessageList: ${oldMessageList} ")
                 messagelist.value = oldMessageList
+                Log.d("TAG_${javaClass.simpleName}", "messagelist: ${messagelist.value} ")
                 delay(30000)
             }
         }
-        messagelist.value?.toMutableList()?.clear()
     }
 
     fun search(newText: String?) {
