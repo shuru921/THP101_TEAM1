@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.thp101_team1_bagchance.R
 import com.example.thp101_team1_bagchance.controller.chat.ChatRoomFragment
+import com.example.thp101_team1_bagchance.controller.chat.MyFCMService
 import com.example.thp101_team1_bagchance.databinding.ChatItemViewBinding
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
@@ -44,6 +45,7 @@ class ChatRoomViewModel : ViewModel() {
     val text: MutableLiveData<String> by lazy { MutableLiveData<String>() }
     //        受監控訊息列表 變化後回傳
     val messagelist: MutableLiveData<List<ChatMessageType>> by lazy { MutableLiveData<List<ChatMessageType>>() }
+
     init {
         val type = object : TypeToken<MutableList<SelectChat>>(){}.type
         user =  requestTask<User>("http://10.0.2.2:8080/test/web/ChatController/"+"aaa", respBodyType = User::class.java, method = "OPTIONS")
@@ -112,5 +114,25 @@ class ChatRoomViewModel : ViewModel() {
             )
             text?.value = ""
         }
+
+        val toid = if (chatmaterial?.value?.inviteUid == user?.id) {
+            chatmaterial?.value?.beInvitedUidname
+        }else {
+            chatmaterial?.value?.inviteUidname
+        }
+        val jsonObject = JsonObject()
+        jsonObject.addProperty("action", "singleFcm")
+        jsonObject.addProperty("title", "您有新訊息")
+        jsonObject.addProperty("body", "快來看看是誰吧!")
+        jsonObject.addProperty("toid", toid )
+        requestTask<JsonObject>("http://localhost:8080/test//fcm/", method = "POST", reqBody = jsonObject)
     }
+
+    fun sendToken(token : String) {
+        val jo = JsonObject()
+        jo.addProperty("mail", user?.mail)
+        jo.addProperty("token", token)
+        requestTask<JsonObject>("http://10.0.2.2:8080/test/fcm/", method = "PUT", reqBody = jo)
+    }
+
 }
