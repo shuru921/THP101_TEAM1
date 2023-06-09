@@ -85,6 +85,7 @@ class ChatRoomFragment : Fragment(), OnTouchListener {
                             .create()
                         //              帶入暱稱 頭貼
                         binding.viewModel?.chatmaterial?.value = gson.fromJson(
+//                            這邊是抓user
                             requestTask<JsonObject>(
                                 "http://10.0.2.2:8080/test/web/ChatController/" + "${inuid}" + "/" + "${beuid}",
                                 method = "DELETE"
@@ -211,6 +212,9 @@ class ChatRoomFragment : Fragment(), OnTouchListener {
         override fun onStart() {
             super.onStart()
 //        啟動requestPermissionLauncher 向使用者申請權限
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
             requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
             if (recordGranted == false) {
                 requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)

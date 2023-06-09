@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "967402627649",
+    "project_id": "testfire-e1f8c",
+    "storage_bucket": "testfire-e1f8c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:967402627649:android:46f444e7ea983253f8dcc0",
+        "android_client_info": {
+          "package_name": "com.ron.fcmtestdemo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJOo0y3r5xEnA5z_ZYa9TL59bVU6zoNO0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
