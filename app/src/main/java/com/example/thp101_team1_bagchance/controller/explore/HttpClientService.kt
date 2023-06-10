@@ -2,7 +2,6 @@ package tw.idv.william.androidwebserver.core.service
 
 
 import android.util.Log
-import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.reflect.TypeToken
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.Deferred

@@ -2,7 +2,7 @@ package com.example.thp101_team1_bagchance.viewmodel.chat
 
 import java.sql.Date
 import java.sql.Timestamp
-
+//      假會員登入測試用
 data class User(
     val id: Int,
     val mail: String,
