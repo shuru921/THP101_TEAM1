@@ -7,3 +7,4 @@ import java.sql.Timestamp
 //                val createDate : Timestamp? = null, val lastUpdateDate : Timestamp? = null)
 //  Chat只用來INSERT和UPDATE設定為NULL JSON轉格式時會略過此行(刪掉) 送到SQL後會給DEFULT
 //  STATUS在UPDATE時要給值 有(I,A,D)
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
