@@ -75,7 +75,7 @@ class ChatMainAdapter(var chats: List<SelectChat>) :
                 chat.inviteUidname
             }
 //            載入最後一筆訊息 若為錄音圖片則轉為文字
-            itemviewbinding.tvLastMessageChat.text = if (chat.message != null && chat.message.isNotEmpty()) {
+            itemviewbinding.viewModel?.lastMessage?.value = if (chat.message != null && chat.message.isNotEmpty()) {
                 "${chat.message}"
             } else if (chat.PICTURE != null && chat.PICTURE.size != 0) {
                 if (chat.sendUid == itemviewbinding.viewModel?.user?.id) {

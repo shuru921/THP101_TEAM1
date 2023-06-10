@@ -45,6 +45,8 @@ class ChatRoomViewModel : ViewModel() {
     val chatmaterial: MutableLiveData<SelectChat> by lazy { MutableLiveData<SelectChat>() }
     //    聊天輸入框
     val text: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    //    為了databinding創的(最後一筆訊息)
+    val lastMessage: MutableLiveData<String> by lazy { MutableLiveData<String>() }
     //    Firebase token
     val token: MutableLiveData<String> by lazy { MutableLiveData<String>() }
     //    受監控聊天室訊息列表 變化後回傳
