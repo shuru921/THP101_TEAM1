@@ -73,6 +73,7 @@ class ChatRoomFragment : Fragment(), OnTouchListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 //        把adapter 索引裡的邀請被邀請人取出 在去後端抓詳細資料
         arguments?.let {
             it.getSerializable("chatmaterialid")?.let {
@@ -200,7 +201,7 @@ class ChatRoomFragment : Fragment(), OnTouchListener {
             }
         }
 //    fixme    一樣調用方法 但記得去掉線程 想辦法抓FIREBASE推播 一推播就更新資料
-        binding.viewModel?.getNewMessage()
+//        binding.viewModel?.getNewMessage()
         binding.viewModel?.messagelist?.value?.toMutableList()?.clear()
     }
 

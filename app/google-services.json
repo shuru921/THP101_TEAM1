@@ -7,6 +7,25 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:967402627649:android:18c9c15abcd33508f8dcc0",
+        "android_client_info": {
+          "package_name": "com.example.thp101_team1_bagchance"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJOo0y3r5xEnA5z_ZYa9TL59bVU6zoNO0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:967402627649:android:46f444e7ea983253f8dcc0",
         "android_client_info": {
           "package_name": "com.ron.fcmtestdemo"

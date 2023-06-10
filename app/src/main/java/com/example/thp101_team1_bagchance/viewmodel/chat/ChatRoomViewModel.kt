@@ -20,6 +20,7 @@ import com.example.thp101_team1_bagchance.R
 import com.example.thp101_team1_bagchance.controller.chat.ChatRoomFragment
 import com.example.thp101_team1_bagchance.controller.chat.MyFCMService
 import com.example.thp101_team1_bagchance.databinding.ChatItemViewBinding
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import com.yalantis.ucrop.UCrop
@@ -43,16 +44,30 @@ class ChatRoomViewModel : ViewModel() {
     val chatmaterial: MutableLiveData<SelectChat> by lazy { MutableLiveData<SelectChat>() }
     //    聊天輸入框
     val text: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val text2: MutableLiveData<String> by lazy { MutableLiveData<String>() }
     //        受監控訊息列表 變化後回傳
     val messagelist: MutableLiveData<List<ChatMessageType>> by lazy { MutableLiveData<List<ChatMessageType>>() }
 
     init {
+        getToken()
         val type = object : TypeToken<MutableList<SelectChat>>(){}.type
-        user =  requestTask<User>("http://10.0.2.2:8080/test/web/ChatController/"+"aaa", respBodyType = User::class.java, method = "OPTIONS")
+        user =  requestTask<User>("http://10.0.2.2:8080/test/web/ChatController/"+"bbb", respBodyType = User::class.java, method = "OPTIONS")
 //        Log.d("myTag${javaClass::getSimpleName}","user => ${user}")
         chats =  requestTask<MutableList<SelectChat>>("http://10.0.2.2:8080/test//web/ChatController/${user?.id}", respBodyType = type)!!.toMutableList()
 //        Log.d("myTag${javaClass::getSimpleName}","chat => ${chats}")
         this.chatlist.value = chats
+    }
+
+    fun getToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                task.result?.let { token ->
+//                    Log.d("=====================1=============", "token: $token")
+                    this.text.value = token
+                    sendToken(token)
+                }
+            }
+        }
     }
 
 
@@ -73,7 +88,7 @@ class ChatRoomViewModel : ViewModel() {
                 Log.d("TAG_${javaClass.simpleName}", "oldMessageList: ${oldMessageList} ")
                 messagelist.value = oldMessageList
                 Log.d("TAG_${javaClass.simpleName}", "messagelist: ${messagelist.value} ")
-                delay(30000)
+//                delay(30000)
             }
         }
     }
@@ -115,17 +130,20 @@ class ChatRoomViewModel : ViewModel() {
             text?.value = ""
         }
 
-        val toid = if (chatmaterial?.value?.inviteUid == user?.id) {
-            chatmaterial?.value?.beInvitedUidname
+        val toMail = if (chatmaterial?.value?.inviteUid == user?.id) {
+
+            chatmaterial?.value?.beInvitedUidMail
         }else {
-            chatmaterial?.value?.inviteUidname
+            chatmaterial?.value?.invitedUidMail
         }
         val jsonObject = JsonObject()
         jsonObject.addProperty("action", "singleFcm")
         jsonObject.addProperty("title", "您有新訊息")
         jsonObject.addProperty("body", "快來看看是誰吧!")
-        jsonObject.addProperty("toid", toid )
-        requestTask<JsonObject>("http://localhost:8080/test//fcm/", method = "POST", reqBody = jsonObject)
+//        Log.d("================","${chatmaterial?.value?.beInvitedUidMail}") ##null
+//        Log.d("================","${chatmaterial?.value?.invitedUidMail}")
+        jsonObject.addProperty("toMail", toMail )
+        requestTask<JsonObject>("http://10.0.2.2:8080/test//fcm/", method = "POST", reqBody = jsonObject)
     }
 
     fun sendToken(token : String) {

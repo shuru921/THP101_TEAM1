@@ -12,6 +12,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.thp101_team1_bagchance.databinding.ActivityUserBinding
+import com.example.thp101_team1_bagchance.viewmodel.chat.ChatRoomViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserBinding
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         override fun onReceive(context: Context, intent: Intent) {
             val news = intent.extras?.getString("newMessage")
 //            fixme 攔截到時連結後端更新資料
+            ChatRoomViewModel().getNewMessage()
         }
     }
 }
