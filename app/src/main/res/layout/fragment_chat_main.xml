@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.thp101_team1_bagchance.viewmodel.chat.ChatMainViewModel" />
+            type="com.example.thp101_team1_bagchance.viewmodel.chat.ChatRoomViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
