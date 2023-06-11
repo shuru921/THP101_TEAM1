@@ -93,7 +93,7 @@ class ChatRoomFragment : Fragment(), OnTouchListener {
                         binding.viewModel?.chatmaterial?.value = gson.fromJson(
 //                          fixme  這邊是抓user(有空要改成restful 後端要改在doget 並switch判斷)
                             requestTask<JsonObject>(
-                                "http://10.0.2.2:8080/test/web/ChatController/" + "${inuid}" + "/" + "${beuid}",
+                                "http://10.0.2.2:8080/bag-chance/web/ChatController/" + "${inuid}" + "/" + "${beuid}",
                                 method = "DELETE"
                             ), SelectChat::class.java
                         )
@@ -405,7 +405,7 @@ class ChatRoomFragment : Fragment(), OnTouchListener {
                         )
                     }
                     requestTask<JsonObject>(
-                        "http://10.0.2.2:8080/test/web/ChatMessageController/",
+                        "http://10.0.2.2:8080/bag-chance/web/ChatMessageController/",
                         method = "POST",
                         reqBody = test
                     )
@@ -452,7 +452,7 @@ class ChatRoomFragment : Fragment(), OnTouchListener {
                             )
                         }
                         requestTask<JsonObject>(
-                            "http://10.0.2.2:8080/test/web/ChatMessageController/",
+                            "http://10.0.2.2:8080/bag-chance/ChatMessageController/",
                             method = "POST",
                             reqBody = test
                         )
@@ -508,7 +508,7 @@ class ChatRoomFragment : Fragment(), OnTouchListener {
 //        Log.d("================","${chatmaterial?.value?.beInvitedUidMail}") ##null
 //        Log.d("================","${chatmaterial?.value?.invitedUidMail}")
         jsonObject.addProperty("toMail", toMail )
-        requestTask<JsonObject>("http://10.0.2.2:8080/test//fcm/", method = "POST", reqBody = jsonObject)
+        requestTask<JsonObject>("http://10.0.2.2:8080/bag-chance/fcm/", method = "POST", reqBody = jsonObject)
 //        收到推播立刻更新資料
         binding.viewModel?.getNewMessage()
     }

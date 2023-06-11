@@ -56,9 +56,9 @@ class ChatRoomViewModel : ViewModel() {
 //       發送token至server server會再送至db
         getToken()
         val type = object : TypeToken<MutableList<SelectChat>>(){}.type
-        user =  requestTask<User>("http://10.0.2.2:8080/test/web/ChatController/"+"aaa@gmail.com", respBodyType = User::class.java, method = "OPTIONS")
+        user =  requestTask<User>("http://10.0.2.2:8080/bag-chance/web/ChatController/"+"bbb@gmail.com", respBodyType = User::class.java, method = "OPTIONS")
         Log.d( myTag ,"user => ${user}")
-        chats =  requestTask<MutableList<SelectChat>>("http://10.0.2.2:8080/test//web/ChatController/${user?.id}", respBodyType = type)!!.toMutableList()
+        chats =  requestTask<MutableList<SelectChat>>("http://10.0.2.2:8080/bag-chance/web/ChatController/${user?.id}", respBodyType = type)!!.toMutableList()
         Log.d( myTag ,"chat => ${chats}")
         this.chatlist.value = chats
     }
@@ -80,7 +80,7 @@ class ChatRoomViewModel : ViewModel() {
         val jo = JsonObject()
         jo.addProperty("mail", user?.mail)
         jo.addProperty("token", token)
-        requestTask<JsonObject>("http://10.0.2.2:8080/test/fcm/", method = "PUT", reqBody = jo)
+        requestTask<JsonObject>("http://10.0.2.2:8080/bag-chance/fcm/", method = "PUT", reqBody = jo)
     }
 
     //         與後端連線更新聊天頁面
@@ -89,7 +89,7 @@ class ChatRoomViewModel : ViewModel() {
 //            while (isActive) {
                 val type = object : TypeToken<List<ChatMessage>>(){}.type
                 Log.d( myTag ,"chatmaterial!!.value?.id => ${chatmaterial!!.value?.id}")
-                val chatMessage = requestTask<List<ChatMessage>>("http://10.0.2.2:8080/test/web/ChatMessageController/"+"${chatmaterial!!.value?.id}", respBodyType = type)
+                val chatMessage = requestTask<List<ChatMessage>>("http://10.0.2.2:8080/bag-chance/web/ChatMessageController/"+"${chatmaterial!!.value?.id}", respBodyType = type)
                 val oldMessageList = mutableListOf<ChatMessageType>()
                 if (chatMessage != null) {
                     for (i in chatMessage) {
@@ -147,7 +147,7 @@ class ChatRoomViewModel : ViewModel() {
                 message = text.value
             )
             requestTask<JsonObject>(
-                "http://10.0.2.2:8080/test//web/ChatMessageController/",
+                "http://10.0.2.2:8080/bag-chance/web/ChatMessageController/",
                 method = "POST",
                 reqBody = test2
             )
@@ -166,7 +166,7 @@ class ChatRoomViewModel : ViewModel() {
         jsonObject.addProperty("body", "快來看看是誰吧!")
         Log.d( myTag ,"${toMail}")
         jsonObject.addProperty("toMail", toMail )
-        requestTask<JsonObject>("http://10.0.2.2:8080/test//fcm/", method = "POST", reqBody = jsonObject)
+        requestTask<JsonObject>("http://10.0.2.2:8080/bag-chance/fcm/", method = "POST", reqBody = jsonObject)
 
         getNewMessage()
     }
