@@ -3,7 +3,7 @@ package com.example.thp101_team1_bagchance.viewmodel.chat
 import java.sql.Timestamp
 
 // 收發聊天室訊息
-// fixme:  messageStatus 視情況修正
+// fixme:  messageStatus(已讀未讀) 視情況修正
 data class ChatMessage (val id: Int? = null,
                         val chatId: Int,
                         val sendUid: Int,

@@ -2,7 +2,7 @@ package com.example.thp101_team1_bagchance.viewmodel.chat
 
 import com.example.thp101_team1_bagchance.R
 import java.sql.Timestamp
-
+//      搜尋聊天室列表用
 data class SelectChat(
     val id: Int,
     val inviteUid: Int,

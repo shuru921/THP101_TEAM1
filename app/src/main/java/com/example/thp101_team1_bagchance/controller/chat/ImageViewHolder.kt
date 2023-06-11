@@ -1,12 +1,8 @@
 package com.example.thp101_team1_bagchance.controller.chat
 
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import com.example.thp101_team1_bagchance.viewmodel.chat.ChatMessageType
 import com.example.thp101_team1_bagchance.databinding.LimageItemViewBinding
-import com.google.gson.JsonObject
-import tw.idv.william.androidwebserver.core.service.requestTask
-import java.io.ByteArrayOutputStream
 
 class ImageViewHolder(private val binding: LimageItemViewBinding) : MessageViewHolder<ChatMessageType.Limage>(binding.root) {
 

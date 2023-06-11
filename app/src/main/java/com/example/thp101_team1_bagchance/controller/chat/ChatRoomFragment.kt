@@ -3,9 +3,7 @@ package com.example.thp101_team1_bagchance.controller.chat
 
 import android.Manifest
 import android.app.Activity
-import android.app.AlertDialog
-import android.content.DialogInterface
-import android.content.Intent
+import android.content.*
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.MediaRecorder
@@ -13,7 +11,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -25,41 +22,43 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.thp101_team1_bagchance.R
 import com.example.thp101_team1_bagchance.databinding.FragmentChatRoomBinding
 import com.example.thp101_team1_bagchance.viewmodel.chat.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import com.yalantis.ucrop.UCrop
 import kotlinx.coroutines.*
-import tw.idv.william.androidwebserver.core.service.requestTask
+import com.example.thp101_team1_bagchance.controller.explore.requestTask
 import java.io.ByteArrayOutputStream
 import java.io.File
-import java.io.FileInputStream
 import java.util.*
-
+//      紀錄權限拒絕次數
 var count: Int = 0
 class ChatRoomFragment : Fragment(), OnTouchListener {
     private lateinit var binding: FragmentChatRoomBinding
-
+    //    接收前景推播
+    private lateinit var newsReceiver: BroadcastReceiver
     //    存錄音檔位置名稱
     private val fileName = "sample.3gp"
-    private var mediaRecorder: MediaRecorder? = null
-
     // fixme   private var mediaPlayer: MediaPlayer? = null 還沒寫播放
+    private var mediaRecorder: MediaRecorder? = null
+    //    紀錄錄音狀態
     private var recordGranted = false
-
     //    錄音檔路徑
     private lateinit var file: File
+    //    錄音計時
     private var durationInSeconds = 0
+    //    執行續(隨錄音狀態改變)
     private var job: Job? = null
+    //    指定根目錄創建資料夾
     private lateinit var camerafile: File
+    //    路徑(?)
     private lateinit var contentUri: Uri
-
-
+    private val myTag = "myTag_${javaClass.simpleName}"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -73,29 +72,33 @@ class ChatRoomFragment : Fragment(), OnTouchListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 //        把adapter 索引裡的邀請被邀請人取出 在去後端抓詳細資料
         arguments?.let {
-            it.getSerializable("chatmaterialid")?.let {
+            it.getSerializable("chatmaterial_inuid")?.let {
                 val inuid = it as Int
                 arguments?.let {
-                    it.getSerializable("chatmateriauid")?.let {
+                    it.getSerializable("chatmaterial_beuid")?.let {
                         val beuid = it as Int
                         val gson = GsonBuilder()
                             .setDateFormat("MMM d, yyyy, h:mm:ss a")
                             .create()
+                        Log.d( myTag ,"inuid: ${inuid}")
+                        Log.d( myTag ,"beuid: ${beuid}")
+
                         //              帶入暱稱 頭貼
                         binding.viewModel?.chatmaterial?.value = gson.fromJson(
-//                            這邊是抓user
+//                          fixme  這邊是抓user(有空要改成restful 後端要改在doget 並switch判斷)
                             requestTask<JsonObject>(
-                                "http://10.0.2.2:8080/test/web/ChatController/" + "${inuid}" + "/" + "${beuid}",
+                                "http://10.0.2.2:8080/bag-chance/web/ChatController/" + "${inuid}" + "/" + "${beuid}",
                                 method = "DELETE"
                             ), SelectChat::class.java
                         )
+                        Log.d( myTag ,"chatmaterial: ${binding.viewModel?.chatmaterial?.value}")
                     }
                 }
             }
         }
+
 //        設定聊天室對方頭像 姓名
         if (binding.viewModel?.chatmaterial?.value?.inviteUid == binding.viewModel?.user?.id) {
             binding.tvNameChat.text =
@@ -103,7 +106,6 @@ class ChatRoomFragment : Fragment(), OnTouchListener {
         } else {
             binding.tvNameChat.text = binding.viewModel?.chatmaterial?.value?.inviteUidname
         }
-
         val byteArray: ByteArray?
         val options = BitmapFactory.Options()
         options.inSampleSize = 3 // 将inSampleSize设置为3，表示将图像尺寸缩小为原来的1/3
@@ -122,6 +124,10 @@ class ChatRoomFragment : Fragment(), OnTouchListener {
                 binding.ivRoomAvatarChat.setImageBitmap(bitmap)
             }
         }
+
+        //                攔截推播 並調用方法
+        newsReceiver = NewsReceiver()
+        registerNewsReceiver()
 
 
         with(binding) {
@@ -145,7 +151,7 @@ class ChatRoomFragment : Fragment(), OnTouchListener {
                     }
                 }
             }
-
+//            相機相簿 bottom_sheet
             ivPhotoChat.setOnClickListener {
                 val bottomSheetBehavior = BottomSheetBehavior.from(included2.photobottomSheet)
                 if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_EXPANDED) {
@@ -200,15 +206,11 @@ class ChatRoomFragment : Fragment(), OnTouchListener {
                 }
             }
         }
-//    fixme    一樣調用方法 但記得去掉線程 想辦法抓FIREBASE推播 一推播就更新資料
-//        binding.viewModel?.getNewMessage()
+//        一進入聊天室先載入訊息
+        binding.viewModel?.getNewMessage()
+//        清空避免重複訊息
         binding.viewModel?.messagelist?.value?.toMutableList()?.clear()
     }
-
-
-
-
-
 
         override fun onStart() {
             super.onStart()
@@ -217,28 +219,45 @@ class ChatRoomFragment : Fragment(), OnTouchListener {
                 requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
             }
             requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
-            if (recordGranted == false) {
-                requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
-                count++
-                println(count)
-                if (count >= 3) {
-                    AlertDialog.Builder(view?.context)
-                        // 設定標題文字
-                        .setTitle(R.string.txtauthorized)
-                        // 設定訊息文字
-                        .setMessage(R.string.txtrequestauthorization)
-                        // 設定positive, negative, neutral按鈕上面的文字與點擊事件監聽器
-                        .setPositiveButton(R.string.txtyes, onClickListener)
-                        .setNegativeButton(R.string.txtno, onClickListener)
-                        .setNeutralButton(R.string.txtCancel, onClickListener)
-                        // false代表要點擊按鈕方能關閉，預設為true
-                        .setCancelable(true)
-                        .show()
-                    count = 0
-                }
-            }
+            // FIXME: 拒絕兩次後 android內建不再詢問 要寫判斷並跳至設定頁提醒使用者
+//            if (recordGranted == false) {
+//                requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
+//                count++
+//                println(count)
+//                if (count >= 3) {
+//                    AlertDialog.Builder(view?.context)
+//                        // 設定標題文字
+//                        .setTitle(R.string.txtauthorized)
+//                        // 設定訊息文字
+//                        .setMessage(R.string.txtrequestauthorization)
+//                        // 設定positive, negative, neutral按鈕上面的文字與點擊事件監聽器
+//                        .setPositiveButton(R.string.txtyes, onClickListener)
+//                        .setNegativeButton(R.string.txtno, onClickListener)
+//                        .setNeutralButton(R.string.txtCancel, onClickListener)
+//                        // false代表要點擊按鈕方能關閉，預設為true
+//                        .setCancelable(true)
+//                        .show()
+//                    count = 0
+//                }
+//            }
         }
 
+//          錄音拒絕提醒的Dialog
+//    val onClickListener = DialogInterface.OnClickListener { dialog, which ->
+//        val text = when (which) {
+//            AlertDialog.BUTTON_POSITIVE -> {
+//                getString(R.string.txtyes)
+//                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+//                startActivity(intent)
+//            }
+//            AlertDialog.BUTTON_NEGATIVE -> getString(R.string.txtno)
+//            AlertDialog.BUTTON_NEUTRAL -> getString(R.string.txtCancel)
+//            else -> ""
+//        }
+//        dialog.cancel()
+//    }
+
+    //        錄音請求權限
         private var requestPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
                 recordGranted = if (result) true
@@ -249,21 +268,7 @@ class ChatRoomFragment : Fragment(), OnTouchListener {
                 }
             }
 
-        val onClickListener = DialogInterface.OnClickListener { dialog, which ->
-            val text = when (which) {
-                AlertDialog.BUTTON_POSITIVE -> {
-                    getString(R.string.txtyes)
-                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                    startActivity(intent)
-                }
-                AlertDialog.BUTTON_NEGATIVE -> getString(R.string.txtno)
-                AlertDialog.BUTTON_NEUTRAL -> getString(R.string.txtCancel)
-                else -> ""
-            }
-            dialog.cancel()
-        }
-
-        //          設定長按及放開
+        //          設定長按錄音及放開結束
         override fun onTouch(v: View?, event: MotionEvent?): Boolean {
             when (v?.id) {
                 R.id.ivRecord_Chat -> {
@@ -306,7 +311,7 @@ class ChatRoomFragment : Fragment(), OnTouchListener {
                 mediaRecorder!!.setOutputFile(file.path)
 
                 mediaRecorder!!.prepare()
-                mediaRecorder!!.start() // 开始录音
+                mediaRecorder!!.start()
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -352,19 +357,19 @@ class ChatRoomFragment : Fragment(), OnTouchListener {
             job = null
         }
 
-        //          計時textview刷新方法
+        //          計時錄音秒數刷新方法
         private fun updateDurationTextView() {
             val minutes = durationInSeconds / 60
             val seconds = durationInSeconds % 60
             val durationText = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds)
 
-//          併回UI線程
+//          併回UI線程(主線程)
             activity?.runOnUiThread {
                 binding.included.tvTimeChat.text = durationText
             }
         }
 
-
+//        相機啟動
         private var takePictureLargeLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 Log.d("myTag_${javaClass.simpleName}", "takePictureLargeLauncher")
@@ -374,8 +379,7 @@ class ChatRoomFragment : Fragment(), OnTouchListener {
                         "myTag_${javaClass.simpleName}",
                         "result.resultCode == Activity.RESULT_OK"
                     )
-//                val list = binding.viewModel?.messagelist?.value ?: listOf()
-//                val mutableList = list.toMutableList()
+                    crop(contentUri)
                     val test: ChatMessage
                     val options = BitmapFactory.Options()
                     options.inSampleSize = 3
@@ -397,16 +401,16 @@ class ChatRoomFragment : Fragment(), OnTouchListener {
                         )
                     }
                     requestTask<JsonObject>(
-                        "http://10.0.2.2:8080/test/web/ChatMessageController/",
+                        "http://10.0.2.2:8080/bag-chance/web/ChatMessageController/",
                         method = "POST",
                         reqBody = test
                     )
-//                mutableList.add(ChatMessageType.Rimage(image = byteArray))
-//                binding.viewModel?.messagelist?.value = mutableList
+
+                    toFcm()
                 }
             }
 
-
+//            相簿啟動
         private var pickPictureLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 Log.d("myTag_${javaClass.simpleName}", "result: $result")
@@ -418,8 +422,6 @@ class ChatRoomFragment : Fragment(), OnTouchListener {
                     )
                     result.data?.data?.let {
                         Log.d("myTag${javaClass.simpleName}", "result ! null")
-//                    val list = binding.viewModel?.messagelist?.value ?: listOf()
-//                    val mutableList = list.toMutableList()
                         crop(it)
                         val test: ChatMessage
                         val options = BitmapFactory.Options()
@@ -446,18 +448,19 @@ class ChatRoomFragment : Fragment(), OnTouchListener {
                             )
                         }
                         requestTask<JsonObject>(
-                            "http://10.0.2.2:8080/test/web/ChatMessageController/",
+                            "http://10.0.2.2:8080/bag-chance/ChatMessageController/",
                             method = "POST",
                             reqBody = test
                         )
-//                    mutableList.add(ChatMessageType.Rimage(image = byteArray))
-//                    binding.viewModel?.messagelist?.value = mutableList
+
+                        toFcm()
                     }
                 }
             }
 
-        //        裁切
+//         裁切
         private fun crop(sourceImageUri: Uri) {
+    // TODO: 尚未裁切就送出了 
             Log.d("myTag${javaClass::getSimpleName}", "crop")
             val file = File(requireContext().getExternalFilesDir(null), "picture_cropped.jpg")
             val destinationUri = Uri.fromFile(file)
@@ -468,11 +471,44 @@ class ChatRoomFragment : Fragment(), OnTouchListener {
                 .getIntent(requireContext())
             cropPictureLauncher.launch(cropIntent)
         }
-
+//        裁切啟動
     private var cropPictureLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         }
+//          註冊攔截意圖
+    private fun registerNewsReceiver() {
+        val intentFilter = IntentFilter("action_ message")
+        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(newsReceiver, intentFilter)
     }
+
+    private inner class NewsReceiver : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val news = intent.extras?.getString("newMessage")
+//             攔截到時連結後端更新資料
+            Log.d("myTag_${javaClass.simpleName}","onReceive")
+            binding.viewModel?.getNewMessage()
+        }
+    }
+//        發送推播
+    private fun toFcm () {
+        // TODO: 只能單向待處理
+        val toMail = if (binding.viewModel?.chatmaterial?.value?.inviteUid == binding.viewModel?.user?.id) {
+            binding.viewModel?.chatmaterial?.value?.beInvitedUidMail
+        }else {
+            binding.viewModel?.chatmaterial?.value?.invitedUidMail
+        }
+        val jsonObject = JsonObject()
+        jsonObject.addProperty("action", "singleFcm")
+        jsonObject.addProperty("title", "您有新訊息")
+        jsonObject.addProperty("body", "快來看看是誰吧!")
+//        Log.d("================","${chatmaterial?.value?.beInvitedUidMail}") ##null
+//        Log.d("================","${chatmaterial?.value?.invitedUidMail}")
+        jsonObject.addProperty("toMail", toMail )
+        requestTask<JsonObject>("http://10.0.2.2:8080/bag-chance/fcm/", method = "POST", reqBody = jsonObject)
+//        收到推播立刻更新資料
+        binding.viewModel?.getNewMessage()
+    }
+}
 
 
 

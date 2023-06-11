@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
-import tw.idv.william.androidwebserver.core.service.requestTask
+import com.example.thp101_team1_bagchance.controller.explore.requestTask
 
 
 class ExploreMainViewModel : ViewModel() {
