@@ -162,7 +162,7 @@ class ChatRoomFragment : Fragment(), OnTouchListener {
                     val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                     camerafile = File(requireContext().getExternalFilesDir(null), "picture.jpg")
                     // Android 7開始，指定拍照存檔路徑要改使用FileProvider
-                    val contentUri = FileProvider.getUriForFile(
+                     contentUri = FileProvider.getUriForFile(
                         requireContext(), requireContext().packageName, camerafile
                     )
                     // 拍照前指定存檔路徑就可取得原圖而非縮圖

@@ -52,8 +52,8 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvMessage_Chat"
-                android:layout_width="370dp"
-                android:layout_height="440dp"
+                android:layout_width="380dp"
+                android:layout_height="400dp"
                 android:background="@color/search9AA151" />
 
 
