@@ -27,7 +27,7 @@ class MyFCMService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         super.onNewToken(token)
         Log.d("myTag_${javaClass.simpleName}","onNewToken: ${token}")
-        ChatRoomViewModel().sendToken(token)
+//        ChatRoomViewModel().sendToken(token)
     }
 
     override fun onDeletedMessages() {
