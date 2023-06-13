@@ -9,46 +9,49 @@
             type="com.example.thp101_team1_bagchance.viewmodel.explore.ExploreStoryCommentViewModel" />
     </data>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/frameLayout3"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-     >
-
-    <ImageButton
-        android:id="@+id/btcommentuserpic"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.013"
-        app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintTop_toTopOf="parent"
-         />
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="288dp"
-        android:text="@{viewModel.comment.nickname}"
+        android:padding="16dp"
+        android:orientation="horizontal">
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btcommentuserpic"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/btcommentuserpic"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
 
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="288dp"
-        android:text="@{viewModel.comment.comment}"
+            android:scaleType="centerCrop"
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btcommentuserpic"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.comment.nickname}"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.comment.comment}"
+                android:textSize="14sp"
+                android:textColor="#757575"
+                android:maxLines="2"
+                android:ellipsize="end"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 </layout>

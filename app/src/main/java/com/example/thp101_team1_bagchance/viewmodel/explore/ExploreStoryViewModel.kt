@@ -13,7 +13,6 @@ class ExploreStoryViewModel : ViewModel() {
     val comment: MutableLiveData<ExploreComment> by lazy { MutableLiveData<ExploreComment>() }
     private var commentList = mutableListOf<ExploreComment>()
     val comments: MutableLiveData<List<ExploreComment>> by lazy { MutableLiveData<List<ExploreComment>>() }
-    val result :MutableLiveData<String> by lazy { MutableLiveData() }
     var inputText = ObservableField<String>("")
 
 

@@ -24,7 +24,7 @@ class ExploreMainStory (var id: Int,
 {
     val age: Int
         get() {
-            val birthDate = LocalDate.parse(birthday, DateTimeFormatter.ofPattern("M月 d, yyyy"))
+            val birthDate = LocalDate.parse(birthday, DateTimeFormatter.ofPattern("MMM d, yyyy"))
             val currentDate = LocalDate.now()
             return Period.between(birthDate, currentDate).years
         }

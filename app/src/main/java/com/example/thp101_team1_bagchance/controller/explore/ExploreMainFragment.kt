@@ -16,6 +16,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.thp101_team1_bagchance.R
+import com.example.thp101_team1_bagchance.controller.chat.ChatRoomAdapter
 import com.example.thp101_team1_bagchance.viewmodel.explore.ExploreMainViewModel
 import com.example.thp101_team1_bagchance.databinding.FragmentExploreMainBinding
 import com.google.android.material.slider.RangeSlider
@@ -25,6 +26,7 @@ class ExploreMainFragment : Fragment() {
     private lateinit var binding: FragmentExploreMainBinding
     private var minAge = 18
     private var maxAge = 120
+
 
 
 

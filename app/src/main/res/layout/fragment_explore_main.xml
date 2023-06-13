@@ -13,11 +13,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
+
         <Button
             android:id="@+id/toggleButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="開啟/隱藏篩選條件" />
+            android:text="開啟/隱藏篩選條件"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:id="@+id/linearLayoutselect"

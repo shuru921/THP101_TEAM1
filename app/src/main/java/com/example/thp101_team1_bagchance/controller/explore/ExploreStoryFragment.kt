@@ -6,9 +6,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.thp101_team1_bagchance.controller.chat.ChatRoomAdapter
 import com.example.thp101_team1_bagchance.databinding.FragmentExploreStoryBinding
 import com.example.thp101_team1_bagchance.viewmodel.explore.ExploreMainStory
 import com.example.thp101_team1_bagchance.viewmodel.explore.ExploreStoryViewModel
@@ -16,6 +19,7 @@ import com.example.thp101_team1_bagchance.viewmodel.explore.ExploreStoryViewMode
 
 class ExploreStoryFragment : Fragment() {
     private lateinit var binding: FragmentExploreStoryBinding
+
 
 
     override fun onCreateView(
@@ -27,7 +31,9 @@ class ExploreStoryFragment : Fragment() {
         val viewModel: ExploreStoryViewModel by viewModels()
         binding = FragmentExploreStoryBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
+
         return binding.root
+
     }
 
 
@@ -45,6 +51,7 @@ class ExploreStoryFragment : Fragment() {
             }
         }
         binding.viewModel?.findcomment()
+
         with(binding){
             rvcomment.layoutManager = LinearLayoutManager(requireContext())
             viewModel?.comments?.observe(viewLifecycleOwner) { commemts ->
@@ -55,7 +62,19 @@ class ExploreStoryFragment : Fragment() {
                     (rvcomment.adapter as ExploreStoryCommentAdapter).updatecomments(commemts)
                 }
             }
+            commentButton.setOnClickListener {
+                val layoutManager = rvcomment.layoutManager
+
+//            滚动到最后一个项的位置
+                val lastPosition = (rvcomment.adapter?.itemCount ?: 0)- 1
+
+//            使用 LayoutManager 对象滚动 RecyclerView
+                if (layoutManager is LinearLayoutManager) {
+                    layoutManager.scrollToPosition(lastPosition)
+                }
+            }
         }
+
         //等有可以登入有偏好設定檔id 就可以啟用新增該登入者留言功能
 //        binding.btPickPicturePost.setOnClickListener {
 //            xuid = loadPreferences()
