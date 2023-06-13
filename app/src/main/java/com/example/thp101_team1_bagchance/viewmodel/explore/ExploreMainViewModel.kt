@@ -22,7 +22,7 @@ class ExploreMainViewModel : ViewModel() {
 
     private fun loadmainStorys() {
         viewModelScope.launch {
-            val url = "http://10.0.2.2:8080/THP101G2-WebServer-School/explore"
+            val url = "http://10.0.2.2:8080/bagchance/explore"
             val type = object : TypeToken<List<ExploreMainStory>>() {}.type
             val list: List<ExploreMainStory>? = requestTask(url, respBodyType = type)
             Log.d("=================","list : ${list}")
