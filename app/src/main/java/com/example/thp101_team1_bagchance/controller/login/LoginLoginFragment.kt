@@ -19,8 +19,7 @@ import com.example.thp101_team1_bagchance.core.service.requestTask
 import com.example.thp101_team1_bagchance.core.util.URL_ROOT
 import com.example.thp101_team1_bagchance.databinding.FragmentLoginLoginBinding
 import com.example.thp101_team1_bagchance.viewmodel.login.LoginLoginViewModel
-import com.example.thp101_team1_bagchance.viewmodel.login.user
-import org.json.JSONObject
+
 
 class LoginLoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginLoginBinding

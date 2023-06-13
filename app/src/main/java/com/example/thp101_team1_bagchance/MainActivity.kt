@@ -11,23 +11,24 @@ import android.view.LayoutInflater
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import com.example.thp101_team1_bagchance.databinding.ActivityLoginBinding
 import com.example.thp101_team1_bagchance.databinding.ActivityUserBinding
 import com.example.thp101_team1_bagchance.viewmodel.chat.ChatRoomViewModel
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityUserBinding
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityUserBinding.inflate(LayoutInflater.from(this))
+        binding = ActivityLoginBinding.inflate(LayoutInflater.from(this))
         setContentView(binding.root)
         val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         // 頁面切換可以整合BottomNavigationView功能
-        NavigationUI.setupWithNavController(
-            binding.bottomNavigationView,
-            navHostFragment.navController
-        )
+//        NavigationUI.setupWithNavController(
+//            binding.bottomNavigationView,
+//            navHostFragment.navController
+//        )
     }
 
 
