@@ -13,131 +13,86 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="476dp"
-        android:layout_marginBottom="20dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:elevation="5dp"
         app:cardBackgroundColor="#E0F2F1"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
         app:contentPadding="8dp">
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/frameLayout4"
-            android:layout_width="403dp"
-            android:layout_height="456dp">
-
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:id="@+id/linearLayout3"
-                android:layout_width="403dp"
-                android:layout_height="96dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="8dp"
-                android:gravity="center"
                 android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <ImageButton
                     android:id="@+id/ExploreimageButtonpic"
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
-                    android:layout_weight="1"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:scaleType="centerCrop"
 
                     tools:src="@tools:sample/avatars" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="8"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/textView12"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.mainstory.nickname}" />
+                        android:text="@{viewModel.mainstory.nickname}"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/textView13"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@{viewModel.mainstory.create_date}"
-
-
-                        />
+                        android:textColor="#757575"
+                        android:textSize="12sp" />
                 </LinearLayout>
-
             </LinearLayout>
 
             <TextView
                 android:id="@+id/textView14"
-                android:layout_width="401dp"
-                android:layout_height="66dp"
-                android:layout_marginTop="12dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@{viewModel.mainstory.content}"
-                app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/linearLayout3"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/linearLayout3"
+                app:layout_constraintStart_toStartOf="@id/linearLayout3"
+                app:layout_constraintTop_toBottomOf="@id/linearLayout3" />
 
             <ImageView
                 android:id="@+id/StoryimageView"
-                android:layout_width="300dp"
-                android:layout_height="200dp"
-                android:layout_marginTop="88dp"
-
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.504"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-                tools:src="@tools:sample/avatars" />
-
-            <ImageButton
-                android:id="@+id/nextimageButton"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="272dp"
-                android:src="@android:drawable/ic_media_next"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginTop="16dp"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
 
-            <ImageButton
-                android:id="@+id/backimageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="272dp"
-                android:src="@android:drawable/ic_media_previous"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="408dp"
-                android:src="@android:drawable/btn_star"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.14"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="408dp"
-                android:src="@drawable/ic_chat"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.859"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="@id/linearLayout3"
+                app:layout_constraintEnd_toEndOf="@id/linearLayout3"
+                app:layout_constraintTop_toBottomOf="@id/textView14"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

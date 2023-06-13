@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -23,6 +25,8 @@ class ExploreMainFragment : Fragment() {
     private lateinit var binding: FragmentExploreMainBinding
     private var minAge = 18
     private var maxAge = 120
+
+
 
 
 
@@ -43,8 +47,19 @@ class ExploreMainFragment : Fragment() {
     }
 
 
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val toggleButton = view.findViewById<Button>(R.id.toggleButton)
+        val linearLayoutSelect = view.findViewById<LinearLayout>(R.id.linearLayoutselect)
+
+        toggleButton.setOnClickListener {
+            if (linearLayoutSelect.visibility == View.VISIBLE) {
+                linearLayoutSelect.visibility = View.GONE
+            } else {
+                linearLayoutSelect.visibility = View.VISIBLE
+            }
+        }
 
 
 

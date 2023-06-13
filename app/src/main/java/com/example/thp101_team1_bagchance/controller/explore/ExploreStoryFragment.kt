@@ -56,6 +56,22 @@ class ExploreStoryFragment : Fragment() {
                 }
             }
         }
+        //等有可以登入有偏好設定檔id 就可以啟用新增該登入者留言功能
+//        binding.btPickPicturePost.setOnClickListener {
+//            xuid = loadPreferences()
+//            binding.viewModel?.addcomment()
+//            Log.d("==========","xui = $xuid")
+//        }
+//    }
+//    fun loadPreferences(): String {
+//        val preferences =
+//            requireActivity().getSharedPreferences(
+//                "SharedPreferences",
+//                android.content.Context.MODE_PRIVATE
+//            )
+//        val xuid = preferences.getString("uid", "")
+//        return xuid!!
+//    }
 
 
     }

@@ -2,7 +2,6 @@ package com.example.thp101_team1_bagchance.viewmodel.explore
 
 
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import java.io.Serializable
 import java.time.LocalDate
