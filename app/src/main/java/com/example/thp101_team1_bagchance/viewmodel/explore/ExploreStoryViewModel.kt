@@ -4,10 +4,9 @@ import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.thp101_team1_bagchance.R
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
-import tw.idv.william.androidwebserver.core.service.requestTask
+import com.example.thp101_team1_bagchance.controller.explore.requestTask
 
 class ExploreStoryViewModel : ViewModel() {
     val mainstory: MutableLiveData<ExploreMainStory> by lazy { MutableLiveData<ExploreMainStory>() }

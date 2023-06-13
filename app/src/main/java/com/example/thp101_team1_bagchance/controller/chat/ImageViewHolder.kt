@@ -8,7 +8,14 @@ class ImageViewHolder(private val binding: LimageItemViewBinding) : MessageViewH
 
     override fun onBind(item: ChatMessageType.Limage) {
         val byteArray = item.image
-        val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+        val options = BitmapFactory.Options()
+        options.inSampleSize = 3 // 将inSampleSize设置为3，表示将图像尺寸缩小为原来的1/3
+        val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size, options)
         binding.ivPictureChat.setImageBitmap(bitmap)
+
+//        val byteArray = item.image
+//        val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+//        binding.ivPictureChat.setImageBitmap(bitmap)
+//        requestTask<JsonObject>("http://10.0.2.2:8080/test//web/ChatMessageController/", method = "POST", reqBody = item)
     }
 }

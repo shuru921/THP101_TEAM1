@@ -3,14 +3,14 @@ package com.example.thp101_team1_bagchance.viewmodel.chat
 import java.sql.Timestamp
 
 // 收發聊天室訊息
-// fixme:  messageStatus 視情況修正
-data class ChatMessage (val id: Int,
+// fixme:  messageStatus(已讀未讀) 視情況修正
+data class ChatMessage (val id: Int? = null,
                         val chatId: Int,
                         val sendUid: Int,
                         val message: String? = null,
                         val picture: ByteArray? = null,
                         val recordingPath: String? = null,
-                        val messageStatus: String,
+                        val messageStatus: String = "A",
                         val createDate: Timestamp? = null) {
 // 將後端得到的資料 轉型為ChatMessageType
     fun toChatMessageType(selfId: Int): ChatMessageType {
