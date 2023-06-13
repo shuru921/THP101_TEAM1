@@ -1,6 +1,5 @@
 package com.example.thp101_team1_bagchance.controller.login
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,9 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import com.example.thp101_team1_bagchance.LoginUser
 import com.example.thp101_team1_bagchance.viewmodel.login.LoginForgetPasswordViewModel
 import com.example.thp101_team1_bagchance.R
+import com.example.thp101_team1_bagchance.core.service.requestTask
+import com.example.thp101_team1_bagchance.core.util.URL_ROOT
 import com.example.thp101_team1_bagchance.databinding.FragmentLoginForgetPasswordBinding
+
 
 class LoginForgetPasswordFragment : Fragment() {
     private lateinit var binding: FragmentLoginForgetPasswordBinding
@@ -28,7 +31,7 @@ class LoginForgetPasswordFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
-            viewModel?.user?.observe(viewLifecycleOwner) {
+            viewModel?.phone?.observe(viewLifecycleOwner) {
                 inputvalid()
             }
             viewModel?.verificationcode?.observe(viewLifecycleOwner) {
@@ -44,9 +47,16 @@ class LoginForgetPasswordFragment : Fragment() {
                 if(!inputvalid()) {
                     return@setOnClickListener
                 }
+
+                val bundle = Bundle()
+                val findBody = LoginUser(phone = "${viewModel?.phone?.value}")
+                val user = requestTask<LoginUser>(URL_ROOT + "user/find", method = "POST" , reqBody = findBody)
+
+                bundle.putSerializable("user", user)
                 //這邊還要加入判斷驗證碼是否正確的程式碼
                 Navigation.findNavController(it).navigate(
-                    R.id.action_loginForgetPasswordFragment_to_loginResetPasswordFragment
+                    R.id.action_loginForgetPasswordFragment_to_loginResetPasswordFragment,
+                    bundle
                 )
             }
         }
@@ -55,7 +65,7 @@ class LoginForgetPasswordFragment : Fragment() {
     private fun inputvalid(): Boolean {
         var valid = true
         with(binding) {
-            val phone = viewModel?.user?.value?.phone?.trim()
+            val phone = viewModel?.phone?.value?.trim()
             val verificationcode = viewModel?.verificationcode?.value?.trim()
             if (phone == null || phone.isEmpty()) {
                 etPhoneLoginForgetPassword.error = "電話不可空白"

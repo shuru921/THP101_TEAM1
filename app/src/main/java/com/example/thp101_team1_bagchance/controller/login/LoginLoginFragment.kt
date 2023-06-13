@@ -1,5 +1,8 @@
 package com.example.thp101_team1_bagchance.controller.login
 
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,10 +10,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
+import com.example.thp101_team1_bagchance.LoginUser
 import com.example.thp101_team1_bagchance.R
+import com.example.thp101_team1_bagchance.UserActivity
+import com.example.thp101_team1_bagchance.core.service.requestTask
+import com.example.thp101_team1_bagchance.core.util.URL_ROOT
 import com.example.thp101_team1_bagchance.databinding.FragmentLoginLoginBinding
 import com.example.thp101_team1_bagchance.viewmodel.login.LoginLoginViewModel
+import com.example.thp101_team1_bagchance.viewmodel.login.user
+import org.json.JSONObject
 
 class LoginLoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginLoginBinding
@@ -28,40 +38,67 @@ class LoginLoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
-            viewModel?.user?.observe(viewLifecycleOwner) {
+            viewModel?.email?.observe(viewLifecycleOwner) {
                 inputvalid()
+            }
+
+            viewModel?.password?.observe(viewLifecycleOwner) {
+                inputvalid()
+            }
+
+            val onClickListener = DialogInterface.OnClickListener { dialog, which ->
+                val buttonText = when (which) {
+                    AlertDialog.BUTTON_POSITIVE -> getString(R.string.txtdialog_positive_button)
+                    else -> ""
+                }
+
+                dialog.cancel()
+
+                if (which == AlertDialog.BUTTON_POSITIVE) {
+                    dialog.dismiss()
+                }
             }
 
             btOKLoginLogin.setOnClickListener {
                 if (!inputvalid()) {
                     return@setOnClickListener
                 }
-//              之後要再加入判斷是否填寫過個人資料的程式碼
-//                以下是要導入首頁的程式碼，暫時沒有
-//                Navigation.findNavController(it).navigate(
-//                    R.id.
-//                )
-            }
-
-            btForgetPasswordLoginLogin.setOnClickListener {
-                Navigation.findNavController(it).navigate(
-                    R.id.action_loginLoginFragment_to_loginForgetPasswordFragment
+                val login = requestTask<LoginUser>(
+                    url = URL_ROOT + "user/login/${viewModel?.email?.value}/${viewModel?.password?.value}",
+                    respBodyType = LoginUser::class.java
                 )
+
+                if (login == null) {
+                    android.app.AlertDialog.Builder(view.context)
+                        .setTitle(R.string.txtdialog_title_notify)
+                        .setMessage(R.string.txtdialog_message_loginlogin)
+                        .setPositiveButton(R.string.txtdialog_positive_button, onClickListener)
+                        .setCancelable(false)
+                        .show()
+                } else {
+                    val intent = Intent(requireActivity(), UserActivity::class.java)
+                    startActivity(intent)
+                }
+
+                btForgetPasswordLoginLogin.setOnClickListener {
+                    Navigation.findNavController(it).navigate(
+                        R.id.action_loginLoginFragment_to_loginForgetPasswordFragment
+                    )
+                }
             }
         }
     }
-
     private fun inputvalid(): Boolean {
         var valid = true
         with(binding) {
-            val phone = viewModel?.user?.value?.phone?.trim()
-            val password = viewModel?.user?.value?.password?.trim()
-            if (phone == null || phone.isEmpty()) {
-                etPhoneLoginLogin.error = "電話不可空白"
+            val email = viewModel?.email?.value?.trim()
+            val password = viewModel?.password?.value?.trim()
+            if (email == null || email.isEmpty()) {
+                etPhoneLoginLogin.error = "信箱不可空白"
                 valid = false
             }
-            if (password == null || password.isEmpty()) {
-                etPasswordLoginLogin.error = "密碼不可空白"
+            if (password?.length ?: 0 < 6 || password?.length ?: 0 > 12) {
+                etPasswordLoginLogin.error = "密碼最少6個字、最多12個字"
                 valid = false
             }
         }

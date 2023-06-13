@@ -38,9 +38,11 @@
     <string name="txtGender">性別</string>
     <string name="txtArea">地區</string>
     <string name="txtdialog_title_notify">通知</string>
-    <string name="txtdialog_message_logingresetpassword">重設密碼成功</string>
+    <string name="txtdialog_message_loginresetpassword">重設密碼成功</string>
     <string name="txtdialog_positive_button">確認</string>
-    <string name="txtdialog_message_logingsignup">註冊成功</string>
+    <string name="txtdialog_message_loginsignup_true">註冊成功</string>
+    <string name="txtdialog_message_loginsignup_false">註冊失敗</string>
+    <string name="txtdialog_message_loginlogin">信箱或密碼錯誤</string>
 
     <string name="txtqueryHint">請輸入好友姓名</string>
     <string name="txtcamera">相機</string>

@@ -50,7 +50,7 @@
             android:ems="10"
             android:hint="@string/txtInputEmail"
             android:inputType="textEmailAddress"
-            android:text="@={viewModel.user.email}"
+            android:text="@={viewModel.email}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView11" />
@@ -76,7 +76,7 @@
             android:ems="10"
             android:hint="@string/txtInputPhone"
             android:inputType="phone"
-            android:text="@={viewModel.user.phone}"
+            android:text="@={viewModel.phone}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView12" />
@@ -102,7 +102,7 @@
             android:ems="10"
             android:hint="@string/txtInputPassword"
             android:inputType="textPassword"
-            android:text="@={viewModel.user.password}"
+            android:text="@={viewModel.password}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView13" />
@@ -143,40 +143,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etConfirmPassword_LoginSignup" />
 
-        <ImageView
-            android:id="@+id/btEmailCancel_LoginSignup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_cancel"
-            app:layout_constraintBottom_toBottomOf="@+id/etEmail_LoginSignup"
-            app:layout_constraintEnd_toEndOf="@+id/etEmail_LoginSignup"
-            app:layout_constraintTop_toTopOf="@+id/etEmail_LoginSignup" />
-
-        <ImageView
-            android:id="@+id/btPhoneCancel_LoginSignup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_cancel"
-            app:layout_constraintBottom_toBottomOf="@+id/etPhone_LoginSignup"
-            app:layout_constraintEnd_toEndOf="@+id/etPhone_LoginSignup"
-            app:layout_constraintTop_toTopOf="@+id/etPhone_LoginSignup" />
-
-        <ImageView
-            android:id="@+id/btPasswordCancel_LoginSignup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_cancel"
-            app:layout_constraintBottom_toBottomOf="@+id/etPassword_LoginSignup"
-            app:layout_constraintEnd_toEndOf="@+id/etPassword_LoginSignup"
-            app:layout_constraintTop_toTopOf="@+id/etPassword_LoginSignup" />
-
-        <ImageView
-            android:id="@+id/btConfirmPasswordlCancel_LoginSignup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_cancel"
-            app:layout_constraintBottom_toBottomOf="@+id/etConfirmPassword_LoginSignup"
-            app:layout_constraintEnd_toEndOf="@+id/etConfirmPassword_LoginSignup"
-            app:layout_constraintTop_toTopOf="@+id/etConfirmPassword_LoginSignup" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

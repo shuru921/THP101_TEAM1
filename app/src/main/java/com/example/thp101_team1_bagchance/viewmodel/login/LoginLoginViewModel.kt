@@ -5,5 +5,6 @@ import androidx.lifecycle.ViewModel
 import com.example.thp101_team1_bagchance.LoginUser
 
 class LoginLoginViewModel : ViewModel() {
-    val user: MutableLiveData<LoginUser> by lazy { MutableLiveData<LoginUser>() }
+    val email: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val password: MutableLiveData<String> by lazy { MutableLiveData<String>() }
 }

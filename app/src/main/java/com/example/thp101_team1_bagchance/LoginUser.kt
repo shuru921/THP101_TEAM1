@@ -1,14 +1,14 @@
 package com.example.thp101_team1_bagchance
 
 data class LoginUser(
-    var id:Int?,
-    var email:String?,
-    var phone:String?,
-    var password:String?,
-    var nickname:String?,
-    var birthday:String?,
-    var gender:String?,
-    var area:String?,
-    var introduction:String?
+    var id:Int? = null,
+    var email:String? = null,
+    var phone:String? = null,
+    var password:String? = null,
+    var nickname:String? = null,
+    var birthday:String? = null,
+    var gender:String? = null,
+    var area:String? = null,
+    var introduction:String? = null
     ): java.io.Serializable {
 }
