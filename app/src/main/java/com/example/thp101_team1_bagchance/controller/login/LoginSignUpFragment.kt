@@ -85,6 +85,11 @@ class LoginSignUpFragment : Fragment() {
                         .show()
                 }
             }
+            btPreviousPageLoginSignUp.setOnClickListener {
+                Navigation.findNavController(it).navigate(
+                    R.id.action_loginSignUpFragment_to_loginMainFragment
+                )
+            }
         }
     }
 

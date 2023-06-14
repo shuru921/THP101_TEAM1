@@ -17,13 +17,13 @@
         <TextView
             android:id="@+id/textView10"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="100dp"
             android:layout_marginEnd="24dp"
             android:gravity="center"
             android:text="@string/txtSignUp"
-            android:textColor="#000000"
+            android:textColor="#35919D"
             android:textSize="24.88sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,20 +37,24 @@
             android:layout_marginTop="24dp"
             android:text="@string/txtEmail"
             android:textColor="#000000"
+            android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
         <EditText
             android:id="@+id/etEmail_LoginSignup"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="24dp"
+            android:background="@drawable/texttype"
             android:ems="10"
             android:hint="@string/txtInputEmail"
             android:inputType="textEmailAddress"
+            android:padding="10dp"
             android:text="@={viewModel.email}"
+            android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView11" />
@@ -63,20 +67,24 @@
             android:layout_marginTop="24dp"
             android:text="@string/txtPhone"
             android:textColor="#000000"
+            android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etEmail_LoginSignup" />
 
         <EditText
             android:id="@+id/etPhone_LoginSignup"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="24dp"
+            android:background="@drawable/texttype"
             android:ems="10"
             android:hint="@string/txtInputPhone"
             android:inputType="phone"
+            android:padding="10dp"
             android:text="@={viewModel.phone}"
+            android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView12" />
@@ -89,20 +97,24 @@
             android:layout_marginTop="24dp"
             android:text="@string/txtPassword"
             android:textColor="#000000"
+            android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etPhone_LoginSignup" />
 
         <EditText
             android:id="@+id/etPassword_LoginSignup"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="24dp"
+            android:background="@drawable/texttype"
             android:ems="10"
             android:hint="@string/txtInputPassword"
             android:inputType="textPassword"
+            android:padding="10dp"
             android:text="@={viewModel.password}"
+            android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView13" />
@@ -115,33 +127,59 @@
             android:layout_marginTop="24dp"
             android:text="@string/txtConfirmPassword"
             android:textColor="#000000"
+            android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etPassword_LoginSignup" />
 
         <EditText
             android:id="@+id/etConfirmPassword_LoginSignup"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="24dp"
+            android:background="@drawable/texttype"
             android:ems="10"
             android:hint="@string/txtInputConfirmPassword"
             android:inputType="textPassword"
+            android:padding="10dp"
             android:text="@={viewModel.confirmpassword}"
+            android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
         <Button
             android:id="@+id/btOK_LoginSignup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_width="168dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/okbutton"
             android:text="@string/txtOK"
+            android:textColor="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etConfirmPassword_LoginSignup" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ba43124134"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btPreviousPage_LoginSignUp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/previousbutton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

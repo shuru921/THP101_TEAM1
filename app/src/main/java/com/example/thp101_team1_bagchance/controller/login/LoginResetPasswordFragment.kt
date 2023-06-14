@@ -76,6 +76,11 @@ class LoginResetPasswordFragment : Fragment() {
                     .setCancelable(false)
                     .show()
             }
+            btPreviousPageLoginResetPassword.setOnClickListener {
+                Navigation.findNavController(it).navigate(
+                    R.id.action_loginResetPasswordFragment_to_loginForgetPasswordFragment
+                )
+            }
         }
     }
 

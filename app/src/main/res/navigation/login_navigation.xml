@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_loginLoginFragment_to_loginForgetPasswordFragment"
             app:destination="@id/loginForgetPasswordFragment" />
+        <action
+            android:id="@+id/action_loginLoginFragment_to_loginMainFragment"
+            app:destination="@id/loginMainFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginSignUpFragment"
@@ -34,6 +37,9 @@
         <action
             android:id="@+id/action_loginSignUpFragment_to_loginLoginFragment"
             app:destination="@id/loginLoginFragment" />
+        <action
+            android:id="@+id/action_loginSignUpFragment_to_loginMainFragment"
+            app:destination="@id/loginMainFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginForgetPasswordFragment"
@@ -43,6 +49,9 @@
         <action
             android:id="@+id/action_loginForgetPasswordFragment_to_loginResetPasswordFragment"
             app:destination="@id/loginResetPasswordFragment" />
+        <action
+            android:id="@+id/action_loginForgetPasswordFragment_to_loginLoginFragment"
+            app:destination="@id/loginLoginFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginResetPasswordFragment"
@@ -52,6 +61,9 @@
         <action
             android:id="@+id/action_loginResetPasswordFragment_to_loginLoginFragment"
             app:destination="@id/loginLoginFragment" />
+        <action
+            android:id="@+id/action_loginResetPasswordFragment_to_loginForgetPasswordFragment"
+            app:destination="@id/loginForgetPasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginPersonalInformationFragment"

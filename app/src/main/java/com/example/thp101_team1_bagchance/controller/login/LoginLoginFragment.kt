@@ -78,12 +78,16 @@ class LoginLoginFragment : Fragment() {
                     val intent = Intent(requireActivity(), UserActivity::class.java)
                     startActivity(intent)
                 }
-
-                btForgetPasswordLoginLogin.setOnClickListener {
-                    Navigation.findNavController(it).navigate(
-                        R.id.action_loginLoginFragment_to_loginForgetPasswordFragment
-                    )
-                }
+            }
+            btForgetPasswordLoginLogin.setOnClickListener {
+                Navigation.findNavController(it).navigate(
+                    R.id.action_loginLoginFragment_to_loginForgetPasswordFragment
+                )
+            }
+            btPreviousPageLoginLogin.setOnClickListener {
+                Navigation.findNavController(it).navigate(
+                    R.id.action_loginLoginFragment_to_loginMainFragment
+                )
             }
         }
     }
